@@ -19,6 +19,7 @@ namespace TTSSWeb
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .UseUrls("http://*:8300")
                 .UseStartup<Startup>();
     }
 }
