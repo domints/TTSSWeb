@@ -1,7 +1,8 @@
 {
     "name": "TTSS Client",
     "short_name": "TTSS Client",
-    "icons": [{
+    "icons": [
+        {
             "src": "/assets/icons/android-chrome-36x36.png",
             "sizes": "36x36",
             "type": "image/png"
