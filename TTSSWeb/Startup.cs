@@ -46,7 +46,6 @@ namespace TTSSWeb
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
             app.UseDefaultFiles();
             app.UseSpaStaticFiles();
             app.UseMvc(routes => {
