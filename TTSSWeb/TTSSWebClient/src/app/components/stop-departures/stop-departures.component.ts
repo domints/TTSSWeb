@@ -15,7 +15,7 @@ export class StopDeparturesComponent implements OnInit, IRoutableComponent {
   stopValueEvents: boolean = false;
   onRouteIn() {
     this.stopValueEvents = true;
-    //this.departureDataService.restore(this);
+    this.departureDataService.restore(this);
     this.stopValueEvents = false;
   }
   onRouteOut() {
