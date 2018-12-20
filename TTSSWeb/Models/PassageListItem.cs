@@ -14,7 +14,7 @@ namespace TTSSWeb.Models
             Line = passage.Line;
             Direction = passage.Direction;
             TramDescription = passage.Vehicle != null ? 
-                $"{passage.Vehicle.SideNo} {(!string.IsNullOrWhiteSpace(passage.Vehicle.ModelName) ? $"({passage.Vehicle.ModelName})" : string.Empty)}"
+                $"{passage.Vehicle.SideNo} {(!string.IsNullOrWhiteSpace(passage.Vehicle.ModelName) ? $"({passage.Vehicle.ModelName})" : passage.Vehicle.RawId)}"
                 : string.Empty;
             VehicleId = passage.Vehicle?.RawId;
             MixedTime = passage.Status == PassageStatus.Departed ? $"{passage.ActualRelative / 60} min" : passage.Status == PassageStatus.Stopping ? ">>>>>" : passage.MixedTime.Replace("%UNIT_MIN%", "min");

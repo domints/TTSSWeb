@@ -1,8 +1,9 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { MatDrawer } from '@angular/material';
+import { IRoutableComponent } from './interfaces/IRoutableComponent';
 
 @Component({
   selector: 'app-root',
@@ -11,16 +12,33 @@ import { MatDrawer } from '@angular/material';
 })
 export class AppComponent {
   @ViewChild('drawer') drawer: MatDrawer;
-
-  title = 'TTSSWebClient';
+  isMobile: boolean = false;
+  currentComponent: IRoutableComponent;
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
-      map(result => result.matches)
+      map(result => { this.isMobile = result.matches; return result.matches; })
     );
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
-
+  constructor(
+    private breakpointObserver: BreakpointObserver)
+     { }
+    
   async onActivate(e) {
-    (await this.isHandset$.toPromise()) && this.drawer.close();
+    if(this.currentComponent)
+      this.currentComponent.onRouteOut();
+    this.currentComponent = e;
+    this.currentComponent.onRouteIn();
+  }
+
+  async closeDrawer() {
+    this.isMobile && this.drawer.close();
+  }
+
+  get title(): string {
+    return (this.currentComponent && this.currentComponent.toolbarTitle) || "Loading TTSSC...";
+  }
+
+  get showBackArrow(): boolean {
+    return this.currentComponent && this.currentComponent.showBackArrow;
   }
 }
