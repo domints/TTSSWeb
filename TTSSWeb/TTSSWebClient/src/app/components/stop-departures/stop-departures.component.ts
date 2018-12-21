@@ -37,8 +37,10 @@ export class StopDeparturesComponent implements OnInit, IRoutableComponent {
         if (typeof v === "string")
           this.stopsService.getAutocomplete(v).subscribe(r => this.autocompleteOptions = r);
         else
+        {
           this.stopsService.getPassages(v.id).subscribe(r => this.passages = r);
-        this.toolbarTitle = "Odjazdy - " + v.name;
+          this.toolbarTitle = "Odjazdy - " + v.name;
+        }
       }
     });
   }
