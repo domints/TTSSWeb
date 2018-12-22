@@ -20,14 +20,14 @@ export class AppComponent {
     );
 
   constructor(
-    private breakpointObserver: BreakpointObserver)
-     { }
-    
+    private breakpointObserver: BreakpointObserver) { }
+
   async onActivate(e) {
-    if(this.currentComponent)
+    if (this.currentComponent && this.currentComponent.onRouteOut)
       this.currentComponent.onRouteOut();
     this.currentComponent = e;
-    this.currentComponent.onRouteIn();
+    if (this.currentComponent.onRouteIn)
+      this.currentComponent.onRouteIn();
   }
 
   async closeDrawer() {

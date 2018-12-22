@@ -26,9 +26,14 @@ export class DepartureDataService {
   restore(c: StopDeparturesComponent)
   {
     if(!this.isSaved) return;
+
     c.toolbarTitle = this.toolbarTitle;
     c.autocompleteOptions = this.autocompleteOptions;
     c.passages = this.passages;
+    c.currentPassages = this.passages.filter(p => !p.isOld);
+    c.oldPassages = this.passages.filter(p => p.isOld);
     c.autocompleteControl.setValue(this.autocompleteValue);
+    if((<StopAutocomplete>this.autocompleteValue).id)
+      c.currentStop = <StopAutocomplete>this.autocompleteValue;
   }
 }

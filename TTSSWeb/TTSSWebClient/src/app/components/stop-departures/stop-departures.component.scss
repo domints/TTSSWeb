@@ -8,56 +8,15 @@
     height: initial;
     padding-top: 4px;
     padding-bottom: 4px;
-    &:nth-child(even) {
-        background-color: #fff;
-    }
-    .row {
-        width: 100%;
-        margin-left: 0;
+}
+
+.list-item:nth-child(even) {
+    background-color: #fff;
+    .old-passages & {
+        background-color: #fafafa;
     }
 }
 
-.row--double {
-    min-height: 42px;
-}
-
-.passage {
-    &__line {
-        text-align: center;
-        font-size: 24px;
-    }
-    &__vehicle {
-        font-size: 9px;
-    }
-    &__direction {
-        font-size: 14px;
-        padding-right: 0;
-    }
-    &__time {
-        font-size: 18px;
-        padding-top: 8px;
-        text-align: right;
-    }
-    &__line,
-    &__time,
-    .time-column {
-        padding-left: 0;
-        padding-right: 0;
-    }
-    &--old {
-        color: #444;
-    }
-}
-
-.time {
-    font-size: 9px;
-    padding-left: 0;
-    padding-right: 0;
-    text-align: right;
-    &--positive {
-        color: green;
-    }
-    &--negative {
-        color: darkred;
-    }
+.old-passages {
+    margin-bottom: 10px;
 }

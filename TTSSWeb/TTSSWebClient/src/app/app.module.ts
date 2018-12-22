@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatAutocompleteModule, MatInputModule, MatFormFieldModule, MatOptionModule, MatDialogModule, MatMenuModule, MatRippleModule } from '@angular/material';
+import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatAutocompleteModule, MatInputModule, MatFormFieldModule, MatOptionModule, MatDialogModule, MatMenuModule, MatExpansionModule } from '@angular/material';
 import { StopDeparturesComponent } from './components/stop-departures/stop-departures.component';
 import { HomeComponent } from './components/home/home.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
@@ -16,6 +16,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SavePassageDialogComponent } from './components/save-passage-dialog/save-passage-dialog.component';
 import { PassageDetailsComponent } from './components/passage-details/passage-details.component';
+import { PassageListItemComponent } from './components/passage-list-item/passage-list-item.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { PassageDetailsComponent } from './components/passage-details/passage-de
     HomeComponent,
     NotFoundComponent,
     SavePassageDialogComponent,
-    PassageDetailsComponent
+    PassageDetailsComponent,
+    PassageListItemComponent
   ],
   imports: [
     BrowserModule,
@@ -39,13 +41,13 @@ import { PassageDetailsComponent } from './components/passage-details/passage-de
     MatAutocompleteModule,
     MatButtonModule,
     MatDialogModule,
+    MatExpansionModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
     MatListModule,
-    //MatMenuModule,
+    MatMenuModule,
     MatOptionModule,
-    //MatRippleModule,
     MatSidenavModule,
     MatToolbarModule,
     

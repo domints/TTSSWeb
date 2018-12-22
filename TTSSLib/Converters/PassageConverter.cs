@@ -22,7 +22,8 @@ namespace TTSSLib.Converters
                 Direction = passage.Direction,
                 Line = passage.PatternText,
                 Status = PassageStatusConverter.Convert(passage.StatusString),
-                Vehicle = passage.GetVehicle()
+                Vehicle = passage.GetVehicle(),
+                TripId = passage.TripID
             };
         }
     }

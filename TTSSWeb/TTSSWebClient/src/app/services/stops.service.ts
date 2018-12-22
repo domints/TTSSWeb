@@ -31,4 +31,5 @@ export class PassageListItem {
   vehicleId: string;
   isOld: boolean;
   delayMinutes: number;
+  tripId: string;
 }

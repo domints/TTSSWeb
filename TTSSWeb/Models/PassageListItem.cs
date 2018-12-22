@@ -19,6 +19,7 @@ namespace TTSSWeb.Models
             VehicleId = passage.Vehicle?.RawId;
             MixedTime = passage.Status == PassageStatus.Departed ? $"{passage.ActualRelative / 60} min" : passage.Status == PassageStatus.Stopping ? ">>>>>" : passage.MixedTime.Replace("%UNIT_MIN%", "min");
             DelayMinutes = passage.Status == PassageStatus.Planned ? (int?)null : (int)Math.Ceiling((passage.ActualTime - passage.PlannedTime).TotalMinutes);
+            TripId = passage.TripId;
 
             IsOld = isOld;
         }
@@ -30,5 +31,6 @@ namespace TTSSWeb.Models
         public int? DelayMinutes { get; set; }
         public string VehicleId { get; set; }
         public bool IsOld { get; set; }
+        public string TripId { get; set; }
     }
 }

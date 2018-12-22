@@ -5,9 +5,10 @@ import { MatDialog } from '@angular/material';
 import { SavePassageDialogComponent } from '../save-passage-dialog/save-passage-dialog.component';
 import { IRoutableComponent } from 'src/app/interfaces/IRoutableComponent';
 import { DepartureDataService } from 'src/app/services/departure-data.service';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-stop-departures',
+  selector: 'stop-departures',
   templateUrl: './stop-departures.component.html',
   styleUrls: ['./stop-departures.component.scss']
 })
@@ -25,11 +26,15 @@ export class StopDeparturesComponent implements OnInit, IRoutableComponent {
   toolbarTitle: string = "Odjazdy";
   autocompleteControl: FormControl = new FormControl();
   autocompleteOptions: StopAutocomplete[] = [];
+  currentStop: StopAutocomplete;
   passages: PassageListItem[] = [];
+  currentPassages: PassageListItem[] = [];
+  oldPassages: PassageListItem[] = [];
 
   constructor(private stopsService: StopsService,
     private dialog: MatDialog,
-    private departureDataService: DepartureDataService) { }
+    private departureDataService: DepartureDataService,
+    private router: Router) { }
 
   ngOnInit() {
     this.autocompleteControl.valueChanges.subscribe(v => {
@@ -38,7 +43,12 @@ export class StopDeparturesComponent implements OnInit, IRoutableComponent {
           this.stopsService.getAutocomplete(v).subscribe(r => this.autocompleteOptions = r);
         else
         {
-          this.stopsService.getPassages(v.id).subscribe(r => this.passages = r);
+          this.currentStop = v;
+          this.stopsService.getPassages(v.id).subscribe(r => {
+            this.passages = r;
+            this.currentPassages = r.filter(p => !p.isOld);
+            this.oldPassages = r.filter(p => p.isOld);
+          });
           this.toolbarTitle = "Odjazdy - " + v.name;
         }
       }
@@ -49,7 +59,12 @@ export class StopDeparturesComponent implements OnInit, IRoutableComponent {
     return stop ? stop.name : undefined;
   }
 
-  itemClicked(item: PassageListItem) {
+  savePassage(item: PassageListItem) {
     this.dialog.open(SavePassageDialogComponent, { data: item });
+  }
+
+  passageDetails(item: PassageListItem)
+  {
+    this.router.navigate(['passage', { id: item.tripId }]);
   }
 }

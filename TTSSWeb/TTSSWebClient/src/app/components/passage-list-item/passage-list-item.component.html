@@ -1,0 +1,29 @@
+<div class="row passage" [class.passage--old]="passage.isOld">
+    <div class="col-1 passage__line">
+        <span>{{ passage.line }}</span>
+    </div>
+    <div class="col">
+        <div class="row row--double">
+            <div class="col passage__direction">
+                {{ passage.direction }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col passage__vehicle">
+                {{ passage.tramDescription }}
+            </div>
+        </div>
+    </div>
+    <div class="col-3 time-column">
+        <div class="row row--double">
+            <div class="col passage__time">
+                <span class="align-middle">{{ passage.mixedTime }}</span>
+            </div>
+        </div>
+        <div class="row" *ngIf="!passage.isOld && passage.delayMinutes">
+            <div class="col time" [class.time--positive]="passage.delayMinutes < 0" [class.time--negative]="passage.delayMinutes > 0">
+                <span>{{passage.delayMinutes}} min</span>
+            </div>
+        </div>
+    </div>
+</div>

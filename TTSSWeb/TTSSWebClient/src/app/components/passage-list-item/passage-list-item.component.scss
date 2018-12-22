@@ -1,0 +1,53 @@
+:host {
+    width: 100%;
+}
+
+.passage {
+    &__line {
+        text-align: center;
+        font-size: 24px;
+    }
+    &__vehicle {
+        font-size: 9px;
+    }
+    &__direction {
+        font-size: 14px;
+        padding-right: 0;
+    }
+    &__time {
+        font-size: 18px;
+        padding-top: 8px;
+        text-align: right;
+    }
+    &__line,
+    &__time,
+    .time-column {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    &--old {
+        color: #444;
+    }
+}
+
+.time {
+    font-size: 9px;
+    padding-left: 0;
+    padding-right: 0;
+    text-align: right;
+    &--positive {
+        color: green;
+    }
+    &--negative {
+        color: darkred;
+    }
+}
+
+.row--double {
+    min-height: 42px;
+}
+
+.row {
+    width: 100%;
+    margin-left: 0;
+}
