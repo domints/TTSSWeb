@@ -1,16 +1,16 @@
 #!/bin/bash
 
-echo "Refreshing sources...\n"
+echo -e "Refreshing sources..."
 git pull
-echo "\nInstalling npm packages...\n"
+echo -e "\nInstalling npm packages..."
 npm --prefix TTSSWeb/TTSSWebClient/ install
-echo "\nBuilding angular...\n"
+echo -e "\nBuilding angular..."
 pushd TTSSWeb/TTSSWebClient/
 ng build --prod
 popd
-echo "\nBuilding .NET Core...\n"
+echo -e "\nBuilding .NET Core..."
 /usr/bin/dotnet publish -c Release TTSSWeb
-echo "\nPublishing artifacts...\n"
+echo -e "\nPublishing artifacts..."
 service ttssweb stop
 rm -rf /var/aspnetcore/ttssweb
 cp -r TTSSWeb/bin/Release/netcoreapp2.2/publish /var/aspnetcore/ttssweb
