@@ -9,6 +9,6 @@ namespace TTSSLib.Interfaces
         ResponseReason ResponseReason { get; }
         Task<Passages> GetPassagesByStopId(int id, StopPassagesType type = StopPassagesType.Departure);
         Task<Passages> GetPassagesByStop(StopBase stop, StopPassagesType type = StopPassagesType.Departure);
-        Task<Passages> GetPassagesByTripId(string id, StopPassagesType type = StopPassagesType.Departure);
+        Task<TripPassages> GetPassagesByTripId(string id, StopPassagesType type = StopPassagesType.Departure);
     }
 }

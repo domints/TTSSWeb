@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using TTSSLib.Interfaces;
 using TTSSLib.Services;
+using TTSSWeb.Services;
 
 namespace TTSSWeb
 {
@@ -29,8 +30,9 @@ namespace TTSSWeb
         {
             services.AddSpaStaticFiles(config => config.RootPath = "./wwwroot");
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddScoped<IStopService, StopService>();
-            services.AddScoped<IPassageService, PassageService>();
+            services.AddSingleton<IAutocompleteService, AutocompleteService>();
+            services.AddTransient<IStopService, StopService>();
+            services.AddTransient<IPassageService, PassageService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

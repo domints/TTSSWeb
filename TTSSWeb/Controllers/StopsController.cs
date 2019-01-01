@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using TTSSLib.Interfaces;
 using TTSSLib.Services;
 using TTSSWeb.Models;
+using TTSSWeb.Services;
 
 namespace TTSSWeb.Controllers
 {
@@ -13,21 +14,20 @@ namespace TTSSWeb.Controllers
     [ApiController]
     public class StopsController : ControllerBase
     {
-        private readonly IStopService stopService;
         private readonly IPassageService passageService;
+        private readonly IAutocompleteService autocompleteService;
 
-        public StopsController(IStopService stopService, IPassageService passageService)
+        public StopsController(IPassageService passageService, IAutocompleteService autocompleteService)
         {
-            this.stopService = stopService;
+            this.autocompleteService = autocompleteService;
             this.passageService = passageService;
         }
 
         [HttpGet]
         [Route("autocomplete")]
-        public async Task<IEnumerable<StopBase>> Autocomplete(string q)
+        public Task<ICollection<StopBase>> Autocomplete(string q)
         {
-            return (await this.stopService.GetCompletionFromService(q))
-                .Select(s => new StopBase { Id = s.ID, Name = s.Name});
+            return autocompleteService.GetAutocomplete(q);
         }
 
         [HttpGet]

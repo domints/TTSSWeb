@@ -19,7 +19,7 @@ namespace TTSSLib.Models.API
         /// The identifier.
         /// </value>
         [JsonProperty("id")]
-        public int ID { get; set; }
+        public string ID { get; set; }
 
 
         /// <summary>

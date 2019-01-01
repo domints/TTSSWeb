@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TTSSLib.Models.API.Base;
 using TTSSLib.Models.Enums;
 
 namespace TTSSLib.Models.API
 {
-    internal class StopPassage
+    internal class StopPassage : BasePassage
     {
         /// <summary>
         /// Gets or sets the actual relative time (time to come) in seconds.
@@ -19,14 +20,7 @@ namespace TTSSLib.Models.API
         [JsonProperty("actualRelativeTime")]
         public int ActualRelativeTime { get; set; }
 
-        /// <summary>
-        /// Gets or sets the actual departure/arrival time as text (like 12:32).
-        /// </summary>
-        /// <value>
-        /// The actual time.
-        /// </value>
-        [JsonProperty("actualTime")]
-        public string ActualTime { get; set; }
+        
 
         /// <summary>
         /// Gets or sets the direction. Name of the last stop.
@@ -81,15 +75,6 @@ namespace TTSSLib.Models.API
         /// </value>
         [JsonProperty("routeId")]
         public string RouteID { get; set; }
-
-        /// <summary>
-        /// Gets or sets the status - predicted or planned.
-        /// </summary>
-        /// <value>
-        /// The status.
-        /// </value>
-        [JsonProperty("status")]
-        public string StatusString { get; set; }
 
         /// <summary>
         /// Gets or sets the trip identifier.

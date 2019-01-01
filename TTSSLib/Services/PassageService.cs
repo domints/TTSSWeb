@@ -34,11 +34,11 @@ namespace TTSSLib.Services
             return await GetPassagesByStopId(stop.ID, type).ConfigureAwait(false);
         }
 
-        public async Task<Passages> GetPassagesByTripId(string id, StopPassagesType type = StopPassagesType.Departure)
+        public async Task<TripPassages> GetPassagesByTripId(string id, StopPassagesType type = StopPassagesType.Departure)
         {
             var response = await Request.TripPassages(id, type).ConfigureAwait(false);
-            var passage = JsonConvert.DeserializeObject<TripPassages>(response.Data);
-            var result = new Passages();
+            var passage = JsonConvert.DeserializeObject<TripInfo>(response.Data);
+            var result = new TripPassages();
             result.ActualPassages = passage.ActualPassages.Select(ap => PassageConverter.Convert(ap)).ToList();
             result.OldPassages = passage.OldPassages.Select(ap => PassageConverter.Convert(ap)).ToList();
             return result;
