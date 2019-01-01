@@ -21,6 +21,9 @@ namespace TTSSWeb.Services
 
         public Task<ICollection<StopBase>> GetAutocomplete(string query)
         {
+            if(string.IsNullOrWhiteSpace(query))
+                return Task.FromResult((ICollection<StopBase>)new List<StopBase>());
+                
             return data.GetOrAdd(query, (key) => GetLazyResult(key)).Value;
         }
 
