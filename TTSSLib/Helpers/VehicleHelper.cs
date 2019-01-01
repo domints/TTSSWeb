@@ -21,13 +21,27 @@ namespace TTSSLib.Helpers
                 RawId = passage.VehicleID
             };
 
-            if(passage.VehicleID.Substring(0, 15) != "635218529567218")
-                return vehicle;
+            var guessed = false;
 
-            int id = int.Parse(passage.VehicleID.Substring(15)) - 736;
+            int id = 0;
             string prefix = string.Empty;
             string type = string.Empty;
             VehicleFloorType floorType = VehicleFloorType.Low;
+            if(passage.VehicleID.Substring(0, 15) == "635218529567218")
+            {
+                id = int.Parse(passage.VehicleID.Substring(15)) - 736;
+            }
+            else if(passage.VehicleID.Substring(0, 3) == "-11")
+            {
+                var gid = VehicleGuessBase.GuessId(passage.VehicleID);
+                if(!gid.HasValue)
+                    return vehicle;
+                
+                id = gid.Value;
+                guessed = true;
+            }
+            else
+                return vehicle;
 
             if (id == 831)
             {
@@ -142,10 +156,10 @@ namespace TTSSLib.Helpers
                 return null;
             }
 
-            vehicle.SideNo = $"{prefix}{id}";
+            vehicle.SideNo = $"{(guessed ? "(???) " : "")}{prefix}{id}";
             vehicle.FloorType = floorType;
             vehicle.ID = id;
-            vehicle.ModelName = prefix;
+            vehicle.ModelName = type;
             return vehicle;
         }
 
