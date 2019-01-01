@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <Target Name="CompileAngularNormal" BeforeTargets="BeforeBuild">
-    <Message Importance="High" Text="Building Angular part as $(Configuration)" />
+    <Message Importance="High" Text="Building Angular part as $(Configuration)" Condition="'$(Configuration)'=='Debug'" />
     <Exec WorkingDirectory="./TTSSWebClient" Command="ng build" Condition="'$(Configuration)'=='Debug'" />
   </Target>
 
