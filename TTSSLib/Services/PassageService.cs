@@ -39,6 +39,8 @@ namespace TTSSLib.Services
             var response = await Request.TripPassages(id, type).ConfigureAwait(false);
             var passage = JsonConvert.DeserializeObject<TripInfo>(response.Data);
             var result = new TripPassages();
+            result.Direction = passage.DirectionText;
+            result.RouteName = passage.RouteName;
             result.ActualPassages = passage.ActualPassages.Select(ap => PassageConverter.Convert(ap)).ToList();
             result.OldPassages = passage.OldPassages.Select(ap => PassageConverter.Convert(ap)).ToList();
             return result;

@@ -1,0 +1,78 @@
+:host {
+    width: 100%;
+    height: 100%;
+}
+
+$color-new: #111;
+$color-old: #888;
+$color-active: #1e88e5;
+.item {
+    height: 100%;
+    &--old {
+        color: $color-old;
+    }
+    &__time {
+        flex: 0 0 45px;
+    }
+    &__dot {
+        flex: 0 0 25px;
+        position: relative;
+    }
+    &__time,
+    &__stop {
+        padding-top: 12px;
+    }
+    &__stop {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+}
+
+.dot {
+    &__top,
+    &__bottom {
+        width: 50%;
+        height: 50%;
+        border-right: 2px solid $color-new;
+    }
+    &__circle {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-13px, -12px);
+        height: 24px;
+        width: 24px;
+        background-color: #fff;
+        border-radius: 12px;
+        border: 2px solid $color-new;
+    }
+    &--old {
+        .dot__top,
+        .dot__bottom {
+            border-right-color: $color-old;
+        }
+        .dot__circle {
+            border-color: $color-old;
+        }
+    }
+    &--active {
+        .dot__top {
+            border-right-color: $color-old;
+        }
+        .dot__circle {
+            border-color: $color-active;
+        }
+    }
+    &--edge.dot--old &__bottom {
+        border-right-color: $color-active;
+    }
+    &--edge.dot--new &__top {
+        border-right-color: $color-active;
+    }
+    &--first &__top {
+        visibility: hidden;
+    }
+    &--last &__bottom {
+        visibility: hidden;
+    }
+}

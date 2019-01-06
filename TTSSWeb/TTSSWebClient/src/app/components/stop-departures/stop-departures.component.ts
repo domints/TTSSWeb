@@ -4,7 +4,7 @@ import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { SavePassageDialogComponent } from '../save-passage-dialog/save-passage-dialog.component';
 import { IRoutableComponent } from 'src/app/interfaces/IRoutableComponent';
-import { DepartureDataService } from 'src/app/services/departure-data.service';
+import { DepartureDataService } from 'src/app/services/store-services/departure-data.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -65,6 +65,6 @@ export class StopDeparturesComponent implements OnInit, IRoutableComponent {
 
   passageDetails(item: PassageListItem)
   {
-    this.router.navigate(['passage', { id: item.tripId }]);
+    this.router.navigate(['passage', item.tripId ]);
   }
 }

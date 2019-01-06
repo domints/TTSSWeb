@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { StopDeparturesComponent } from '../components/stop-departures/stop-departures.component';
-import { StopAutocomplete, PassageListItem } from './stops.service';
+import { StopDeparturesComponent } from '../../components/stop-departures/stop-departures.component';
+import { StopAutocomplete, PassageListItem } from '../stops.service';
 
 @Injectable({
   providedIn: 'root'

@@ -4,16 +4,18 @@ import { StopDeparturesComponent } from './components/stop-departures/stop-depar
 import { HomeComponent } from './components/home/home.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { PassageDetailsComponent } from './components/passage-details/passage-details.component';
+import { TripPassagesResolver } from './resolvers/trip-passages.resolver';
 
 const routes: Routes = [
   { path: 'departures', component: StopDeparturesComponent },
-  { path: 'passage/:id', component: PassageDetailsComponent},
+  { path: 'passage/:id', component: PassageDetailsComponent, resolve: { passages: TripPassagesResolver } },
   { path: '', component: HomeComponent },
   { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [TripPassagesResolver]
 })
 export class AppRoutingModule { }

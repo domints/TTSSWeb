@@ -30,6 +30,6 @@ namespace TTSSLib.Models.API
         /// The name of the stop.
         /// </value>
         [JsonProperty("routeName")]
-        public string routeName { get; set; }
+        public string RouteName { get; set; }
     }
 }

@@ -16,7 +16,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SavePassageDialogComponent } from './components/save-passage-dialog/save-passage-dialog.component';
 import { PassageDetailsComponent } from './components/passage-details/passage-details.component';
-import { PassageListItemComponent } from './components/passage-list-item/passage-list-item.component';
+import { PassageListItemComponent } from './components/list-items/passage-list-item/passage-list-item.component';
+import { TripPassageListItemComponent } from './components/list-items/trip-passage-list-item/trip-passage-list-item.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { PassageListItemComponent } from './components/passage-list-item/passage
     NotFoundComponent,
     SavePassageDialogComponent,
     PassageDetailsComponent,
-    PassageListItemComponent
+    PassageListItemComponent,
+    TripPassageListItemComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +52,6 @@ import { PassageListItemComponent } from './components/passage-list-item/passage
     MatOptionModule,
     MatSidenavModule,
     MatToolbarModule,
-    
   ],
   providers: [],
   bootstrap: [AppComponent],

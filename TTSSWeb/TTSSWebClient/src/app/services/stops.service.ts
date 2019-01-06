@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ export class StopsService {
     return this.http.get<StopAutocomplete[]>('/api/stops/autocomplete?', { params: { q: value } });
   }
 
-  public getPassages(stopId: string) {
+  public getPassages(stopId: string): Observable<PassageListItem[]> {
     return this.http.get<PassageListItem[]>('/api/stops/passages', { params: { stopId: stopId } })
   }
 }
