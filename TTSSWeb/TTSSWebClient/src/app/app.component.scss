@@ -11,3 +11,13 @@
 .sidenav-toggle-btn {
     margin-right: 16px;
 }
+
+.app-toolbar {
+    overflow: hidden;
+    position: fixed;
+    z-index: 1;
+}
+
+.router-container {
+    margin-top: 56px;
+}
