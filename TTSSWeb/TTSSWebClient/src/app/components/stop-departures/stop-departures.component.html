@@ -1,5 +1,5 @@
 <mat-form-field class="autocomplete-form-field">
-    <input type="text" matInput [matAutocomplete]="auto" [formControl]="autocompleteControl">
+    <input type="text" matInput [matAutocomplete]="auto" [formControl]="autocompleteControl" placeholder="Szukaj przystanku...">
     <mat-autocomplete #auto="matAutocomplete" [displayWith]="autocompleteStopDisplayFn">
         <mat-option *ngFor="let option of autocompleteOptions" [value]="option">{{ option.name }}</mat-option>
     </mat-autocomplete>
