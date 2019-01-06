@@ -1,4 +1,5 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { Location } from '@angular/common';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -20,7 +21,8 @@ export class AppComponent {
     );
 
   constructor(
-    private breakpointObserver: BreakpointObserver) { }
+    private breakpointObserver: BreakpointObserver,
+    private location: Location) { }
 
   async onActivate(e) {
     if (this.currentComponent && this.currentComponent.onRouteOut)
@@ -40,5 +42,9 @@ export class AppComponent {
 
   get showBackArrow(): boolean {
     return this.currentComponent && this.currentComponent.showBackArrow;
+  }
+
+  goBack() {
+    this.location.back()
   }
 }
