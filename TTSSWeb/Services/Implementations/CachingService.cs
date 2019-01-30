@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using TTSSWeb.Helpers;
 
-namespace TTSSWeb.Services
+namespace TTSSWeb.Services.Implementations
 {
     public static class CachingService
     {

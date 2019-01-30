@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 using TTSSLib.Interfaces;
 using TTSSWeb.Models;
 
-namespace TTSSWeb.Services
+namespace TTSSWeb.Services.Implementations
 {
-    public class AutocompleteService : IAutocompleteService
+    public class LocalAutocompleteService : IAutocompleteService
     {
         private ConcurrentDictionary<string, Lazy<Task<ICollection<StopBase>>>> data 
             = new ConcurrentDictionary<string, Lazy<Task<ICollection<StopBase>>>>();
-        private readonly IStopService stopService;
+        private readonly IStopCacheService stopService;
 
-        public AutocompleteService(IStopService stopService)
+        public LocalAutocompleteService(IStopCacheService stopService)
         {
             this.stopService = stopService;
         }
@@ -30,9 +30,12 @@ namespace TTSSWeb.Services
         private Lazy<Task<ICollection<StopBase>>> GetLazyResult(string query)
         {
             return new Lazy<Task<ICollection<StopBase>>>(
-                async () =>
-                    (await this.stopService.GetCompletionFromService(query))
-                        .Select(s => new StopBase { Id = s.ID, Name = s.Name }).ToList());
+                 () => GetResult(query));
+        }
+
+        private Task<ICollection<StopBase>> GetResult(string query)
+        {
+            return Task.FromResult((ICollection<StopBase>)stopService.GetAutocomplete(query));
         }
     }
 }

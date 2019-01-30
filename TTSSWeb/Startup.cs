@@ -13,6 +13,7 @@ using Microsoft.Extensions.Options;
 using TTSSLib.Interfaces;
 using TTSSLib.Services;
 using TTSSWeb.Services;
+using TTSSWeb.Services.Implementations;
 
 namespace TTSSWeb
 {
@@ -30,13 +31,14 @@ namespace TTSSWeb
         {
             services.AddSpaStaticFiles(config => config.RootPath = "./wwwroot");
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddSingleton<IAutocompleteService, AutocompleteService>();
+            services.AddSingleton<IAutocompleteService, LocalAutocompleteService>();
+            services.AddSingleton<IStopCacheService, StopCacheService>();
             services.AddTransient<IStopService, StopService>();
             services.AddTransient<IPassageService, PassageService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IStopCacheService stopCacheService)
         {
             if (env.IsDevelopment())
             {
@@ -54,6 +56,8 @@ namespace TTSSWeb
                 routes.MapRoute("default", "{controller}/{action=Index}");
                 routes.MapRoute("spa", "{*url}", new { controller = "Home", action = "Index"});
             });
+
+            stopCacheService.InitStaticData().Wait();
         }
     }
 }

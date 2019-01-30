@@ -11,6 +11,7 @@ namespace TTSSLib.Models.Enums
     {
         Unknown = 1,
         Tram = 2,
-        Other = 4     
+        Bus = 4,
+        Other = 8, 
     }
 }

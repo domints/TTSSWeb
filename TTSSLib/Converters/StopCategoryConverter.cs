@@ -16,6 +16,9 @@ namespace TTSSLib.Converters
                 case "tram":
                     return StopType.Tram;
 
+                case "bus":
+                    return StopType.Bus;
+
                 case "other":
                     return StopType.Other;
             }

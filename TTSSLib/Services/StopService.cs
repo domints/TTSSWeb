@@ -14,19 +14,55 @@ namespace TTSSLib.Services
 {
     public class StopService : IStopService
     {
-        public async Task<List<StopData>> GetAllStops(StopType requestedTypes = StopType.Other | StopType.Tram)
+        public async Task<List<StopData>> GetAllStops(StopType requestedTypes = StopType.Other | StopType.Tram | StopType.Bus)
         {
-            var response = await Request.AllStops().ConfigureAwait(false);
-            var preparsed = JsonConvert.DeserializeObject<GeoStops>(response.Data).Stops;
-            return preparsed.Select(s => new StopData {
-                ID = int.Parse(s.ShortName),
-                Latitude = (double)s.Latitude.ToCoordinate(),
-                Longitude = (double)s.Longitude.ToCoordinate(),
-                Name = s.Name,
-                Type = StopCategoryConverter.Convert(s.Category)
-            })
-            .Where(s => (requestedTypes & s.Type) == s.Type)
-            .OrderBy(s => s.Name)
+            IEnumerable<StopData> tramFiltered = Enumerable.Empty<StopData>();
+            IEnumerable<StopData> busFiltered = Enumerable.Empty<StopData>();
+
+            if ((requestedTypes & StopType.Tram) == StopType.Tram)
+            {
+                var tramResponse = await Request.AllStops(false).ConfigureAwait(false);
+                var tramPreparsed = JsonConvert.DeserializeObject<GeoStops>(tramResponse.Data).Stops;
+                tramFiltered = tramPreparsed.Select(s => new StopData
+                {
+                    ID = int.Parse(s.ShortName),
+                    Latitude = (double)s.Latitude.ToCoordinate(),
+                    Longitude = (double)s.Longitude.ToCoordinate(),
+                    Name = s.Name,
+                    Type = StopCategoryConverter.Convert(s.Category)
+                })
+                .Where(s => (requestedTypes & s.Type) == s.Type);
+            }
+            if ((requestedTypes & StopType.Bus) == StopType.Bus)
+            {
+                var busResponse = await Request.AllStops(true).ConfigureAwait(false);
+                var busPreparsed = JsonConvert.DeserializeObject<GeoStops>(busResponse.Data).Stops;
+                busFiltered = busPreparsed.Select(s => new StopData
+                {
+                    ID = int.Parse(s.ShortName),
+                    Latitude = (double)s.Latitude.ToCoordinate(),
+                    Longitude = (double)s.Longitude.ToCoordinate(),
+                    Name = s.Name,
+                    Type = StopCategoryConverter.Convert(s.Category)
+                })
+                .Where(s => (requestedTypes & s.Type) == s.Type);
+            }
+
+            Dictionary<int, StopData> tramStops = tramFiltered.ToDictionary(k => k.ID);
+            HashSet<int> matched = new HashSet<int>();
+
+            return busFiltered.Select(bf =>
+            {
+                if (tramStops.ContainsKey(bf.ID))
+                {
+                    bf.Type = bf.Type | tramStops[bf.ID].Type;
+                    matched.Add(bf.ID);
+                }
+
+                return bf;
+            }).
+            Concat(tramFiltered.Where(tf => !matched.Contains(tf.ID)))
+            .OrderByDescending(s => s.Name)
             .ToList();
         }
 

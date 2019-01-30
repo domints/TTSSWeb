@@ -6,22 +6,22 @@ namespace TTSSLib.Helpers
 {
     internal static class Request
     {
-        internal static async Task<Response> AllRoutes()
+        internal static async Task<Response> AllRoutes(bool bus = false)
         {
-            return await HttpHelper.GetString(Addresses.AllRoutes).ConfigureAwait(false);
+            return await HttpHelper.GetString(Addresses.AllRoutes, bus).ConfigureAwait(false);
         }
 
-        internal static async Task<Response> AllStops()
+        internal static async Task<Response> AllStops(bool bus)
         {
-            return await HttpHelper.GetString(Addresses.AllStops).ConfigureAwait(false);
+            return await HttpHelper.GetString(Addresses.AllStops, bus).ConfigureAwait(false);
         }
 
-        internal static async Task<Response> AutoComplete(string query)
+        internal static async Task<Response> AutoComplete(string query, bool bus = false)
         {
-            return await HttpHelper.GetString(string.Format(Addresses.Autocomplete, query)).ConfigureAwait(false);
+            return await HttpHelper.GetString(string.Format(Addresses.Autocomplete, query), bus).ConfigureAwait(false);
         }
 
-        internal static async Task<Response> StopPassages(int stopId, StopPassagesType type)
+        internal static async Task<Response> StopPassages(int stopId, StopPassagesType type, bool bus)
         {
             string stype = string.Empty;
             switch (type)
@@ -34,7 +34,7 @@ namespace TTSSLib.Helpers
                     break;
             }
 
-            return await HttpHelper.GetString(string.Format(Addresses.PassageInfo, stopId, stype)).ConfigureAwait(false);
+            return await HttpHelper.GetString(string.Format(Addresses.PassageInfo, stopId, stype), bus).ConfigureAwait(false);
         }
 
         internal static async Task<Response> TripPassages(string tripId, StopPassagesType type)

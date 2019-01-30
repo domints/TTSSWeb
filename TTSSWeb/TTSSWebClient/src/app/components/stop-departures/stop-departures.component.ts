@@ -87,7 +87,7 @@ export class StopDeparturesComponent implements OnInit, IRoutableComponent {
   }
 
   savePassage(item: PassageListItem) {
-    this.dialog.open(SavePassageDialogComponent, { data: item });
+    this.dialog.open(SavePassageDialogComponent, { data: JSON.parse(JSON.stringify(item)) });
   }
 
   passageDetails(item: PassageListItem)

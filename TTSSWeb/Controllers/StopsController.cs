@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TTSSLib.Interfaces;
+using TTSSLib.Models.Enums;
 using TTSSLib.Services;
 using TTSSWeb.Models;
 using TTSSWeb.Services;
@@ -16,10 +17,15 @@ namespace TTSSWeb.Controllers
     {
         private readonly IPassageService passageService;
         private readonly IAutocompleteService autocompleteService;
+        private readonly IStopCacheService stopCacheService;
 
-        public StopsController(IPassageService passageService, IAutocompleteService autocompleteService)
+        public StopsController(
+            IPassageService passageService,
+            IAutocompleteService autocompleteService,
+            IStopCacheService stopCacheService)
         {
             this.autocompleteService = autocompleteService;
+            this.stopCacheService = stopCacheService;
             this.passageService = passageService;
         }
 
@@ -34,7 +40,7 @@ namespace TTSSWeb.Controllers
         [Route("passages")]
         public async Task<IEnumerable<PassageListItem>> Passages(int stopId)
         {
-            var response = await this.passageService.GetPassagesByStopId(stopId);
+            var response = await this.passageService.GetPassagesByStopId(stopId, StopPassagesType.Departure, stopCacheService.GetStopType(stopId));
             return response.OldPassages.Select(p => new PassageListItem(p, true))
                 .Concat(response.ActualPassages.Select(p => new PassageListItem(p))).ToList();
         }

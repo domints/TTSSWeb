@@ -11,6 +11,6 @@ namespace TTSSLib.Interfaces
     public interface IStopService
     {
         Task<List<StopBase>> GetCompletionFromService(string name);
-        Task<List<StopData>> GetAllStops(StopType requestedType = StopType.Other | StopType.Tram);
+        Task<List<StopData>> GetAllStops(StopType requestedType = StopType.Other | StopType.Tram | StopType.Bus);
     }
 }
