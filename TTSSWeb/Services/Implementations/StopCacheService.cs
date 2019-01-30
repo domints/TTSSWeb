@@ -55,7 +55,7 @@ namespace TTSSWeb.Services.Implementations
                 if(results.Count >= 20)
                     return results;
 
-                if(s.Name.ToLower().Contains(query))
+                if(s.Name.ToLower().Contains(query.Trim().ToLower()))
                     results.Add(s);
             }
 
