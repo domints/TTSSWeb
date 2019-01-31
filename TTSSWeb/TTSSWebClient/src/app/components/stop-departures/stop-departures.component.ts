@@ -92,6 +92,6 @@ export class StopDeparturesComponent implements OnInit, IRoutableComponent {
 
   passageDetails(item: PassageListItem)
   {
-    this.router.navigate(['passage', item.tripId ]);
+    this.router.navigate(['passage', item.tripId, item.isBus ]);
   }
 }

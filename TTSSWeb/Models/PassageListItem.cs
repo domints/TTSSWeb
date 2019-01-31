@@ -22,6 +22,7 @@ namespace TTSSWeb.Models
             TripId = passage.TripId;
 
             IsOld = isOld;
+            IsBus = passage.IsBus;
         }
 
         public string Line { get; set; }
@@ -32,5 +33,6 @@ namespace TTSSWeb.Models
         public string VehicleId { get; set; }
         public bool IsOld { get; set; }
         public string TripId { get; set; }
+        public bool IsBus { get; set; }
     }
 }

@@ -18,6 +18,7 @@ namespace TTSSLib.Models.Data
         public PassageStatus Status { get; set; }
         public Vehicle Vehicle { get; set; }
         public string TripId { get; set; }
+        public bool IsBus { get; set; }
 
         public override string ToString()
         {

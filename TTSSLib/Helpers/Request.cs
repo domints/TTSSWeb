@@ -37,7 +37,7 @@ namespace TTSSLib.Helpers
             return await HttpHelper.GetString(string.Format(Addresses.PassageInfo, stopId, stype), bus).ConfigureAwait(false);
         }
 
-        internal static async Task<Response> TripPassages(string tripId, StopPassagesType type)
+        internal static async Task<Response> TripPassages(string tripId, StopPassagesType type, bool bus)
         {
             string stype = string.Empty;
             switch (type)
@@ -50,7 +50,7 @@ namespace TTSSLib.Helpers
                     break;
             }
 
-            return await HttpHelper.GetString(string.Format(Addresses.TripPassages, tripId, stype)).ConfigureAwait(false);
+            return await HttpHelper.GetString(string.Format(Addresses.TripPassages, tripId, stype), bus).ConfigureAwait(false);
         }
     }
 }

@@ -18,6 +18,7 @@ export class PassageDetailsComponent implements OnInit, OnDestroy, IRoutableComp
   hasStopping: boolean = false;
   timer: any;
   tripId: string;
+  isBus: string;
   reloading: boolean = false;
 
   refreshSubscription: Subscription;
@@ -37,11 +38,12 @@ export class PassageDetailsComponent implements OnInit, OnDestroy, IRoutableComp
   ngOnInit() {
     this.refreshData(this.route.snapshot.data.passages);
     this.tripId = this.route.snapshot.params.id;
+    this.isBus = this.route.snapshot.params.isBus;
     this.paramSubscription = this.route.params.subscribe(p => this.tripId = p.id);
     this.refreshSubscription = interval(5000).subscribe((i) => {
       if (!this.reloading && this.tripId) {
         this.reloading = true;
-        this.tripPassagesService.getTripPassages(this.tripId).subscribe(psgs => {
+        this.tripPassagesService.getTripPassages(this.tripId, this.isBus).subscribe(psgs => {
           this.reloading = false;
           this.refreshData(psgs);
         });

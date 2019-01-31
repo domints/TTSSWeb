@@ -18,9 +18,9 @@ namespace TTSSWeb.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        public async Task<TripPassages> Passages(string tripId)
+        public async Task<TripPassages> Passages(string tripId, bool bus)
         {
-            return TripPassages.FromLibModel(await this.passageService.GetPassagesByTripId(tripId));
+            return TripPassages.FromLibModel(await this.passageService.GetPassagesByTripId(tripId, bus));
         }
     }
 }

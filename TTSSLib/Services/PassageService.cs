@@ -37,14 +37,16 @@ namespace TTSSLib.Services
             else busInfo = new StopInfo { ActualPassages = new List<StopPassage>(), OldPassages = new List<StopPassage>() };
             var result = new Passages();
             result.ActualPassages = tramInfo.ActualPassages
-                .Concat(busInfo.ActualPassages)
-                .OrderBy(p => p.ActualRelativeTime)
                 .Select(ap => PassageConverter.Convert(ap))
+                .Concat(busInfo.ActualPassages
+                    .Select(ap => PassageConverter.Convert(ap, true)))
+                .OrderBy(p => p.ActualRelative)
                 .ToList();
             result.OldPassages = tramInfo.OldPassages
-                .Concat(busInfo.OldPassages)
-                .OrderBy(p => p.ActualRelativeTime)
                 .Select(ap => PassageConverter.Convert(ap))
+                .Concat(busInfo.OldPassages
+                    .Select(ap => PassageConverter.Convert(ap, true)))
+                .OrderBy(p => p.ActualRelative)
                 .ToList();
             return result;
         }
@@ -54,9 +56,9 @@ namespace TTSSLib.Services
             return await GetPassagesByStopId(stop.ID, type, stopType).ConfigureAwait(false);
         }
 
-        public async Task<TripPassages> GetPassagesByTripId(string id, StopPassagesType type = StopPassagesType.Departure, StopType stopType = StopType.Tram | StopType.Bus)
+        public async Task<TripPassages> GetPassagesByTripId(string id, bool isBus, StopPassagesType type = StopPassagesType.Departure)
         {
-            var response = await Request.TripPassages(id, type).ConfigureAwait(false);
+            var response = await Request.TripPassages(id, type, isBus).ConfigureAwait(false);
             var passage = JsonConvert.DeserializeObject<TripInfo>(response.Data);
             var result = new TripPassages();
             result.Direction = passage.DirectionText;

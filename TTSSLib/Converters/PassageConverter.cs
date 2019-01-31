@@ -11,7 +11,7 @@ namespace TTSSLib.Converters
 {
     internal class PassageConverter
     {
-        internal static Passage Convert(StopPassage passage)
+        internal static Passage Convert(StopPassage passage, bool isBus = false)
         {
             return new Passage
             {
@@ -23,7 +23,8 @@ namespace TTSSLib.Converters
                 Line = passage.PatternText,
                 Status = PassageStatusConverter.Convert(passage.StatusString),
                 Vehicle = passage.GetVehicle(),
-                TripId = passage.TripID
+                TripId = passage.TripID,
+                IsBus = isBus
             };
         }
 

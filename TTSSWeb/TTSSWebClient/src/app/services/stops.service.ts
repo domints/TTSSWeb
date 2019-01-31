@@ -32,4 +32,5 @@ export class PassageListItem {
   isOld: boolean;
   delayMinutes: number;
   tripId: string;
+  isBus: string;
 }

@@ -8,7 +8,7 @@ import { TripPassagesResolver } from './resolvers/trip-passages.resolver';
 
 const routes: Routes = [
   { path: 'departures', component: StopDeparturesComponent },
-  { path: 'passage/:id', component: PassageDetailsComponent, resolve: { passages: TripPassagesResolver } },
+  { path: 'passage/:id/:isBus', component: PassageDetailsComponent, resolve: { passages: TripPassagesResolver } },
   { path: '', component: HomeComponent },
   { path: '**', component: NotFoundComponent }
 ];

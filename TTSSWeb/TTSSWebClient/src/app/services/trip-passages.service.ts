@@ -9,9 +9,9 @@ export class TripPassagesService {
 
   constructor(private http: HttpClient) { }
 
-  public getTripPassages(tripId: string): Observable<TripPassages>
+  public getTripPassages(tripId: string, isBus: string): Observable<TripPassages>
   {
-    return this.http.get<TripPassages>('/api/trips/passages', { params: { tripId: tripId } });
+    return this.http.get<TripPassages>('/api/trips/passages', { params: { tripId: tripId, bus: isBus } });
   }
 }
 

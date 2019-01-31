@@ -11,7 +11,7 @@ export class TripPassagesResolver implements Resolve<TripPassages> {
   constructor(private tripPassagesService: TripPassagesService) { }
 
   resolve(route: ActivatedRouteSnapshot) : Observable<TripPassages> {
-    return this.tripPassagesService.getTripPassages(route.paramMap.get('id'));
+    return this.tripPassagesService.getTripPassages(route.paramMap.get('id'), route.paramMap.get('isBus'));
   }
 }
 
