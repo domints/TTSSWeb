@@ -22,7 +22,7 @@ export class StopDeparturesComponent implements OnInit, IRoutableComponent {
     if(this.currentStop)
     {
       this.refreshPassages();
-      this.startRefresher();
+      //this.startRefresher();
     }
     this.stopValueEvents = false;
   }
@@ -56,7 +56,7 @@ export class StopDeparturesComponent implements OnInit, IRoutableComponent {
           this.stopRefresher();
           this.currentStop = v;
           this.refreshPassages();
-          this.startRefresher();
+          //this.startRefresher();
           this.toolbarTitle = "Odjazdy - " + v.name;
         }
       }
