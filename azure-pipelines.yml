@@ -30,10 +30,10 @@ steps:
   displayName: 'Build Angular for Prod'
   workingDirectory: TTSSWeb/TTSSWebClient/
 
-- script: dotnet publish -c ${{parameters.buildConf}}
-  displayName: 'dotnet publish ${{parameters.buildConf}}'
+- script: dotnet publish -c Release
+  displayName: 'dotnet publish Release'
   workingDirectory: TTSSWeb
-- script: mkdir -p Output && tar -czf Output/artifact.tar.gz -C TTSSWeb/bin/${{parameters.buildConf}}/netcoreapp2.2/publish .
+- script: mkdir -p Output && tar -czf Output/artifact.tar.gz -C TTSSWeb/bin/Release/netcoreapp2.2/publish .
   displayName: 'Move results to Output dir'
 - task: CopyFilesOverSSH@0
   inputs:
@@ -46,4 +46,4 @@ steps:
     sshEndpoint: vps_conn
     runOptions: 'script'
     scriptPath: 'azure-publish.sh'
-    args: ${{parameters.svcName}}
+    args: ttssweb
