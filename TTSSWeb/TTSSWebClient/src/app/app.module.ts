@@ -29,6 +29,7 @@ import { SavePassageDialogComponent } from './components/save-passage-dialog/sav
 import { PassageDetailsComponent } from './components/passage-details/passage-details.component';
 import { PassageListItemComponent } from './components/list-items/passage-list-item/passage-list-item.component';
 import { TripPassageListItemComponent } from './components/list-items/trip-passage-list-item/trip-passage-list-item.component';
+import { MapComponent } from './components/map/map.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { TripPassageListItemComponent } from './components/list-items/trip-passa
     SavePassageDialogComponent,
     PassageDetailsComponent,
     PassageListItemComponent,
-    TripPassageListItemComponent
+    TripPassageListItemComponent,
+    MapComponent
   ],
   imports: [
     BrowserModule,
