@@ -31,15 +31,22 @@ steps:
   workingDirectory: TTSSWeb
 - script: mkdir -p Output && cp azure-publish.sh Output/azure-publish.sh && tar -czf Output/artifact.tar.gz -C TTSSWeb/bin/Release/netcoreapp2.2/publish .
   displayName: 'Move results to Output dir'
-- task: CopyFilesOverSSH@0
+  
+- task: PublishBuildArtifacts@1
   inputs:
-    sshEndpoint: vps_conn
-    sourceFolder: Output
-    targetFolder: /home/azure/deploy_temp
-    cleanTargetFolder: true
-- task: SSH@0
-  inputs:
-    sshEndpoint: vps_conn
-    runOptions: 'script'
-    scriptPath: 'azure-publish.sh'
-    args: ttss
+    PathtoPublish: 'Output'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
+    
+#- task: CopyFilesOverSSH@0
+#  inputs:
+#    sshEndpoint: vps_conn
+#    sourceFolder: Output
+#    targetFolder: /home/azure/
+#    cleanTargetFolder: true
+#- task: SSH@0
+#  inputs:
+#    sshEndpoint: vps_conn
+#    runOptions: 'script'
+#    scriptPath: 'azure-publish.sh'
+#    args: ttss
