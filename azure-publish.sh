@@ -1,3 +1,4 @@
+#!/bin/bash
 cd ~/deploy_temp && \
 sudo /usr/sbin/service $1 stop && \
 rm -rf /var/aspnetcore/$1/* && \
