@@ -22,7 +22,6 @@ steps:
 
 - script: |
     npm install -g @angular/cli@7.0.3
-    npm install --save-dev  --unsafe-perm node-sass
     npm install
 
   displayName: 'npm install'
@@ -48,4 +47,4 @@ steps:
     sshEndpoint: vps_conn
     runOptions: 'script'
     scriptPath: 'azure-publish.sh'
-    args: ttssweb
+    args: ttss

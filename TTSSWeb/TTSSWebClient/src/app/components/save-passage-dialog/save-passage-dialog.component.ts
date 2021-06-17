@@ -1,8 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { PassageListItem } from 'src/app/services/stops.service';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { TTSSXApiService } from 'src/app/services/ttssxapi.service';
-import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-save-passage-dialog',
