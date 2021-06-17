@@ -10,11 +10,6 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- task: InstallSSHKey@0
-  inputs:
-    knownHostsEntry: 'vps.dszymanski.pl ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBFc+1vWJCOpIkxH300RI7S7ZtkV2PXGytsrjpaFV9dxoLRUGZN8OS7CKYEahC+sneRF6A1keb3mJ42Mr657mZD8='
-    sshPublicKey: 'ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQBbGJ+friKpM9PkYgMpRfcmukntkvdeHfodK38H3+kYYvx3AiNow2WTpbjjtIsYJyX1WQOJETLh9efAtApNe+H9am2hhpv80/krn8M/CKQqbcwXZioIjolfTh+QF59QP/MPiBtkLqB7oNcPIxM+84jbgJXnb2xQWQMa4OXA6OQXQc+QAj9wdrBg/3l6Go4V3CxQMEMrFsQXChUL2flnesbU/tMs81rFsxTBWQiEjcKbXVbw3DfPs1PeFTEM8ck8WDKloWKbzQIqqImR9B6bCFynp+PuG4JRlBV0VISXBCk5rbyvRTjFgDUwcuosjcRl+SuQZCWBnjJFb0paMjKYiRoP devops-ttss'
-    sshKeySecureFile: 'devops-ttss'
 - task: NodeTool@0
   inputs:
     versionSpec: '12.x'
@@ -34,7 +29,7 @@ steps:
 - script: dotnet publish -c Release
   displayName: 'dotnet publish Release'
   workingDirectory: TTSSWeb
-- script: mkdir -p Output && tar -czf Output/artifact.tar.gz -C TTSSWeb/bin/Release/netcoreapp2.2/publish .
+- script: mkdir -p Output && cp azure-publish.sh Output/azure-publish.sh && tar -czf Output/artifact.tar.gz -C TTSSWeb/bin/Release/netcoreapp2.2/publish .
   displayName: 'Move results to Output dir'
 - task: CopyFilesOverSSH@0
   inputs:
