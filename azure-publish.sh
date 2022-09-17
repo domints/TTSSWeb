@@ -1,6 +1,11 @@
 #!/bin/bash
 cd ~/deploy_temp && \
-sudo /usr/sbin/service ttss stop && \
+echo "Stopping ttss service..." && \
+sudo /usr/bin/systemctl start ttss && \
+echo "TTSS service stopped. Removing old app" && \
 rm -rf /var/dotnet/ttss/* && \
+echo "Old version removed. Unzipping artifacts" && \
 tar -xzf artifact.tar.gz -C /var/dotnet/ttss && \
-sudo /usr/sbin/service ttss start
+echo "Artifacts unzipped. Starting TTSS service..." && \
+sudo /usr/bin/systemctl start ttss && \
+echo "Deployment script finished!"
