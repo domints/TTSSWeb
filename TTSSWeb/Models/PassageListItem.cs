@@ -13,9 +13,9 @@ namespace TTSSWeb.Models
         {
             Line = passage.Line;
             Direction = passage.Direction;
-            TramDescription = passage.Vehicle != null ? 
-                $"{passage.Vehicle.SideNo} {(!string.IsNullOrWhiteSpace(passage.Vehicle.ModelName) ? $"({passage.Vehicle.ModelName})" : passage.Vehicle.RawId)}"
-                : string.Empty;
+            ModelName = passage?.Vehicle.ModelName;
+            SideNo = passage?.Vehicle.SideNo;
+            FloorType = passage?.Vehicle.FloorType;
             VehicleId = passage.Vehicle?.RawId;
             MixedTime = passage.Status == PassageStatus.Departed ? $"{passage.ActualRelative / 60} min" : passage.Status == PassageStatus.Stopping ? ">>>>>" : passage.MixedTime.Replace("%UNIT_MIN%", "min");
             DelayMinutes = passage.Status == PassageStatus.Planned ? (int?)null : (int)Math.Ceiling((passage.ActualTime - passage.PlannedTime).TotalMinutes);
@@ -27,12 +27,14 @@ namespace TTSSWeb.Models
 
         public string Line { get; set; }
         public string Direction { get; set; }
-        public string TramDescription { get; set; }
+        public string ModelName { get; set; }
+        public string SideNo { get; set; }
         public string MixedTime { get; set; }
         public int? DelayMinutes { get; set; }
         public string VehicleId { get; set; }
         public bool IsOld { get; set; }
         public string TripId { get; set; }
         public bool IsBus { get; set; }
+        public VehicleFloorType FloorType { get; set; }
     }
 }

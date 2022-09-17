@@ -1,5 +1,5 @@
 #!/bin/bash
-cd ~/deploy_temp && \
+cd ~/deploy_temp/ttss && \
 echo "Stopping ttss service..." && \
 sudo /usr/bin/systemctl_start ttss && \
 echo "TTSS service stopped. Removing old app" && \
