@@ -26,7 +26,9 @@ export class StopAutocomplete {
 export class PassageListItem {
   line: string;
   direction: string;
-  tramDescription: string;
+  modelName: string;
+  sideNo: string;
+  floorType: number;
   mixedTime: string;
   vehicleId: string;
   isOld: boolean;
