@@ -3,38 +3,112 @@
     height: 100%;
 }
 
+$dot-column-width: 42px;
+$dot-circle-radius: 16px;
+$item-height: 48px;
 $color-new: #111;
 $color-old: #888;
 $color-active: #1e88e5;
+
 .item {
     height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+
     &--old {
         color: $color-old;
     }
-    &__time {
-        flex: 0 0 45px;
-    }
+
     &__dot {
-        flex: 0 0 25px;
         position: relative;
+        width: $dot-column-width;
     }
-    &__time,
-    &__stop {
-        padding-top: 12px;
+
+    &__time {
+        width: 42px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
     }
+
     &__stop {
-        padding-left: 5px;
-        padding-right: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        flex-grow: 1;
+        height: 100%;
+        width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 }
 
 .dot {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__circle {
+        height: 16px;
+        width: 16px;
+        background-color: #fff;
+        border-radius: 50%;
+        border: 2px solid $color-new;
+
+        &::after, &::before {
+            content: '';
+            height: ($item-height - $dot-circle-radius) / 2;
+            width: 0px;
+            border-right: 2px solid $color-new;
+            display: block;
+            position: absolute;
+        }
+
+        &::after {
+            bottom: 0px;
+            left: ($dot-column-width - 2px) / 2;;
+        }
+
+        &::before {
+            top: 0px;
+            left: ($dot-column-width - 2px) / 2;
+        }
+    }
+
+    &--old {
+        .dot__circle {
+            &, &::after, &::before {
+                border-color: $color-old;
+            }
+        }
+    }
+
+    &--active {
+        .dot__circle {
+            &, &::after, &::before {
+                border-color: $color-active;
+            }
+        }
+    }
+
+    &--edge.dot--old &__circle::after, &--edge.dot--new &__circle::before {
+        border-right-color: $color-active;
+    }
+
+    &--first &__circle::before, &--last &__circle::after {
+        visibility: hidden;
+    }
+}
+
+.dotdot {
+
     &__top,
     &__bottom {
         width: 50%;
         height: 50%;
         border-right: 2px solid $color-new;
     }
+
     &__circle {
         position: absolute;
         top: 50%;
@@ -46,32 +120,41 @@ $color-active: #1e88e5;
         border-radius: 12px;
         border: 2px solid $color-new;
     }
+
     &--old {
+
         .dot__top,
         .dot__bottom {
             border-right-color: $color-old;
         }
+
         .dot__circle {
             border-color: $color-old;
         }
     }
+
     &--active {
         .dot__top {
             border-right-color: $color-old;
         }
+
         .dot__circle {
             border-color: $color-active;
         }
     }
+
     &--edge.dot--old &__bottom {
         border-right-color: $color-active;
     }
+
     &--edge.dot--new &__top {
         border-right-color: $color-active;
     }
+
     &--first &__top {
         visibility: hidden;
     }
+
     &--last &__bottom {
         visibility: hidden;
     }

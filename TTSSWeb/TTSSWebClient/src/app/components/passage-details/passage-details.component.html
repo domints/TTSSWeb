@@ -1,5 +1,1 @@
-<mat-list *ngIf="passages">
-    <mat-list-item class="list-item" *ngFor="let passage of passages.listItems; first as isFirst; last as isLast; index as i">
-        <trip-passage-list-item [item]="passage" [isFirst]="isFirst" [isLast]="isLast" [isEdge]="edgeIndex == i || edgeIndex + 1 == i"></trip-passage-list-item>
-    </mat-list-item>
-</mat-list>
+<passage-detail-list [tripId]="tripId" [isBus]="isBus" (updateToolbarTitle)="updateTitle"></passage-detail-list>

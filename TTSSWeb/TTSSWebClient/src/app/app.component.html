@@ -7,7 +7,7 @@
             <a mat-list-item href="#">WIP</a>
         </mat-nav-list>
     </mat-sidenav>
-    <mat-sidenav-content>
+    <mat-sidenav-content class="sidenav-content-root" fixedInViewport="true">
         <mat-toolbar color="primary" class="app-toolbar">
             <button type="button" class="sidenav-toggle-btn" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="!showBackArrow && isHandset$ | async">
                 <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
@@ -17,7 +17,7 @@
             </button>
             <span>{{ title }}</span>
         </mat-toolbar>
-        <div class="container router-container">
+        <div class="router-container">
             <router-outlet (activate)="onActivate($event)"></router-outlet>
         </div>
     </mat-sidenav-content>

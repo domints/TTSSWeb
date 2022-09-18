@@ -1,31 +1,37 @@
-<mat-form-field class="autocomplete-form-field">
-    <input type="text" matInput [matAutocomplete]="auto" [formControl]="autocompleteControl" placeholder="Szukaj przystanku...">
-    <mat-autocomplete #auto="matAutocomplete" [displayWith]="autocompleteStopDisplayFn">
-        <mat-option *ngFor="let option of autocompleteOptions" [value]="option">{{ option.name }}</mat-option>
-    </mat-autocomplete>
-</mat-form-field>
-<mat-list [disableRipple]="false">
-    <mat-expansion-panel class="old-passages" *ngIf="oldPassages.length > 0">
-        <mat-expansion-panel-header>
-            <mat-panel-title>
-                Poprzednie przejazdy
-            </mat-panel-title>
-        </mat-expansion-panel-header>
-        <div class="list-item" *ngFor="let passage of oldPassages">
+<div class="stop-departures">
+    <mat-form-field class="container autocomplete-form-field">
+        <input type="text" matInput [matAutocomplete]="auto" [formControl]="autocompleteControl"
+            placeholder="Szukaj przystanku...">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="autocompleteStopDisplayFn">
+            <mat-option *ngFor="let option of autocompleteOptions" [value]="option">{{ option.name }}</mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+    <mat-list class="stop-departures__list" [disableRipple]="false">
+        <mat-expansion-panel class="old-passages" *ngIf="oldPassages.length > 0">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Poprzednie przejazdy
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="list-item" [class.list-item--selected]="selectedPassage == passage" *ngFor="let passage of oldPassages">
+                <mat-list-item [matMenuTriggerFor]="passageMenu">
+                    <passage-list-item [passage]="passage"></passage-list-item>
+                </mat-list-item>
+                <mat-menu #passageMenu="matMenu">
+                    <button mat-menu-item *ngIf="passage.tripId" (click)="passageDetails(passage)">Szczegóły...</button>
+                </mat-menu>
+            </div>
+        </mat-expansion-panel>
+        <div class="list-item" [class.list-item--selected]="selectedPassage == passage" *ngFor="let passage of currentPassages">
             <mat-list-item [matMenuTriggerFor]="passageMenu">
                 <passage-list-item [passage]="passage"></passage-list-item>
             </mat-list-item>
-            <mat-menu #passageMenu="matMenu">
-                <button mat-menu-item *ngIf="passage.tripId" (click)="passageDetails(passage)">Szczegóły...</button>
+            <mat-menu class="passage-list-item-menu" #passageMenu="matMenu">
+                <button mat-menu-item *ngIf="passage.tripId" (click)="passageDetails(passage)">Szczegóły</button>
             </mat-menu>
         </div>
-    </mat-expansion-panel>
-    <div class="list-item" *ngFor="let passage of currentPassages">
-        <mat-list-item [matMenuTriggerFor]="passageMenu">
-            <passage-list-item [passage]="passage"></passage-list-item>
-        </mat-list-item>
-        <mat-menu class="passage-list-item-menu" #passageMenu="matMenu">
-            <button mat-menu-item *ngIf="passage.tripId" (click)="passageDetails(passage)">Szczegóły</button>
-        </mat-menu>
-    </div>
-</mat-list>
+    </mat-list>
+</div>
+<div class="trip-passages" *ngIf="screenWidth >= 1200">
+    <passage-detail-list *ngIf="tripId" [tripId]="tripId" [isBus]="isBus"></passage-detail-list>
+</div>

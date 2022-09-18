@@ -29,10 +29,13 @@ namespace TTSSLib.Services
         {
             StopInfo tramInfo;
             StopInfo busInfo;
+            Dictionary<string, Vehicle> trams = new Dictionary<string, Vehicle>();
+            Dictionary<string, Vehicle> buses = new Dictionary<string, Vehicle>();
             if ((stopType & StopType.Tram) == StopType.Tram)
             {
                 var response = await Request.StopPassages(id, type, false).ConfigureAwait(false);
                 tramInfo = JsonConvert.DeserializeObject<StopInfo>(response.Data);
+                trams = await GetVehiclesForStopInfo(tramInfo, GtfsVehicleType.Tram);
             }
             else
             {
@@ -43,14 +46,12 @@ namespace TTSSLib.Services
             {
                 var response = await Request.StopPassages(id, type, true).ConfigureAwait(false);
                 busInfo = JsonConvert.DeserializeObject<StopInfo>(response.Data);
+                buses = await GetVehiclesForStopInfo(busInfo, GtfsVehicleType.Bus);
             }
             else
             {
                 busInfo = new StopInfo { ActualPassages = new List<StopPassage>(), OldPassages = new List<StopPassage>() };
             }
-
-            var trams = await GetVehiclesForStopInfo(tramInfo, GtfsVehicleType.Tram);
-            var buses = await GetVehiclesForStopInfo(busInfo, GtfsVehicleType.Bus);
 
             var result = new Passages();
             result.ActualPassages = tramInfo.ActualPassages
@@ -93,6 +94,8 @@ namespace TTSSLib.Services
                 .Select(i => long.Parse(i.VehicleID))
                 .Distinct()
                 .ToList();
+            if (vehicleIds.Count == 0)
+                return new();
             var vehicles = await _gtfsProvider.GetVehiclesForIds(type, vehicleIds);
             return vehicles.Select(v => Vehicle.FromGtfsVehicle(v)).ToDictionary(k => k.RawId);
         }

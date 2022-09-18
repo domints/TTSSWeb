@@ -27,6 +27,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SavePassageDialogComponent } from './components/save-passage-dialog/save-passage-dialog.component';
 import { PassageDetailsComponent } from './components/passage-details/passage-details.component';
+import { PassageDetailListComponent } from './components/passage-details/passage-detail-list/passage-detail-list.component';
 import { PassageListItemComponent } from './components/list-items/passage-list-item/passage-list-item.component';
 import { TripPassageListItemComponent } from './components/list-items/trip-passage-list-item/trip-passage-list-item.component';
 import { MapComponent } from './components/map/map.component';
@@ -39,9 +40,11 @@ import { MapComponent } from './components/map/map.component';
     NotFoundComponent,
     SavePassageDialogComponent,
     PassageDetailsComponent,
+    PassageDetailListComponent,
     PassageListItemComponent,
     TripPassageListItemComponent,
-    MapComponent
+    MapComponent,
+    PassageDetailListComponent
   ],
   imports: [
     BrowserModule,

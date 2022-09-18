@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { StopsService, StopAutocomplete, PassageListItem } from 'src/app/services/stops.service';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -38,6 +38,12 @@ export class StopDeparturesComponent implements OnInit, IRoutableComponent {
   passages: PassageListItem[] = [];
   currentPassages: PassageListItem[] = [];
   oldPassages: PassageListItem[] = [];
+  selectedPassage: PassageListItem = null;
+
+  tripId: string;
+  isBus: string;
+
+  screenWidth: number;
 
   refresherSubscription: Subscription;
 
@@ -47,6 +53,7 @@ export class StopDeparturesComponent implements OnInit, IRoutableComponent {
     private router: Router) { }
 
   ngOnInit() {
+    this.screenWidth = window.innerWidth;
     this.autocompleteControl.valueChanges.subscribe(v => {
       if (!this.stopValueEvents) {
         if (typeof v === "string")
@@ -92,6 +99,18 @@ export class StopDeparturesComponent implements OnInit, IRoutableComponent {
 
   passageDetails(item: PassageListItem)
   {
-    this.router.navigate(['passage', item.tripId, item.isBus ]);
+    if (this.screenWidth < 1200)
+      this.router.navigate(['passage', item.tripId, item.isBus]);
+    else
+    {
+      this.selectedPassage = item;
+      this.tripId = item.tripId;
+      this.isBus = item.isBus;
+    }
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onWindowResize() {
+    this.screenWidth = window.innerWidth;
   }
 }

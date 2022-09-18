@@ -18,12 +18,25 @@
     z-index: 1;
 }
 
-.router-container {
-    margin-top: 56px;
+.sidenav-content-root {
+    padding-top: 56px;
+    height: 100vh;
+
+    .app-toolbar {
+        margin-top: -56px;
+    }
 }
 
 @media(min-width: 600px) {
-    .router-container {
-        margin-top: 64px;
+    .sidenav-content-root {
+        padding-top: 64px;
+
+        .app-toolbar {
+            margin-top: -64px;
+        }
     }
+}
+
+.router-container {
+    height: 100%;
 }
