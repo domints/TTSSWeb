@@ -1,7 +1,7 @@
 #!/bin/bash
 cd ~/deploy_temp/ttss && \
 echo "Stopping ttss service..." && \
-sudo /usr/bin/systemctl_start ttss && \
+sudo /usr/bin/systemctl_stop ttss && \
 echo "TTSS service stopped. Removing old app" && \
 rm -rf /var/dotnet/ttss/* && \
 echo "Old version removed. Unzipping artifacts" && \
