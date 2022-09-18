@@ -13,9 +13,9 @@ namespace TTSSWeb.Models
         {
             Line = passage.Line;
             Direction = passage.Direction;
-            ModelName = passage?.Vehicle.ModelName;
-            SideNo = passage?.Vehicle.SideNo;
-            FloorType = passage?.Vehicle.FloorType;
+            ModelName = passage?.Vehicle?.ModelName;
+            SideNo = passage?.Vehicle?.SideNo;
+            FloorType = passage?.Vehicle?.FloorType ?? VehicleFloorType.High;
             VehicleId = passage.Vehicle?.RawId;
             MixedTime = passage.Status == PassageStatus.Departed ? $"{passage.ActualRelative / 60} min" : passage.Status == PassageStatus.Stopping ? ">>>>>" : passage.MixedTime.Replace("%UNIT_MIN%", "min");
             DelayMinutes = passage.Status == PassageStatus.Planned ? (int?)null : (int)Math.Ceiling((passage.ActualTime - passage.PlannedTime).TotalMinutes);

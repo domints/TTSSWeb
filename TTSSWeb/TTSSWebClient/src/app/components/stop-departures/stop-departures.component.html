@@ -17,7 +17,6 @@
             </mat-list-item>
             <mat-menu #passageMenu="matMenu">
                 <button mat-menu-item *ngIf="passage.tripId" (click)="passageDetails(passage)">Szczegóły...</button>
-                <button mat-menu-item *ngIf="passage.vehicleId" (click)="savePassage(passage)">Zapisz przejazd...</button>
             </mat-menu>
         </div>
     </mat-expansion-panel>
@@ -25,9 +24,8 @@
         <mat-list-item [matMenuTriggerFor]="passageMenu">
             <passage-list-item [passage]="passage"></passage-list-item>
         </mat-list-item>
-        <mat-menu #passageMenu="matMenu">
+        <mat-menu class="passage-list-item-menu" #passageMenu="matMenu">
             <button mat-menu-item *ngIf="passage.tripId" (click)="passageDetails(passage)">Szczegóły</button>
-            <button mat-menu-item *ngIf="passage.vehicleId" (click)="savePassage(passage)">Zapisz przejazd</button>
         </mat-menu>
     </div>
 </mat-list>

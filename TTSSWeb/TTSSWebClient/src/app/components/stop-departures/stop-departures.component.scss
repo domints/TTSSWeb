@@ -13,6 +13,7 @@
 
 .list-item:nth-child(even) {
     background-color: #fff;
+
     .old-passages & {
         background-color: #fafafa;
     }
@@ -20,4 +21,14 @@
 
 .old-passages {
     margin-bottom: 10px;
+}
+
+.mat-list-base {
+    margin-left: -15px;
+    margin-right: -15px;
+}
+
+.mat-expansion-panel {
+    margin-left: 15px;
+    margin-right: 15px;
 }

@@ -29,12 +29,13 @@ namespace TTSSWeb
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSpaStaticFiles(config => config.RootPath = "./wwwroot");
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            // services.AddSpaStaticFiles(config => config.RootPath = "./wwwroot");
+            services.AddMvc(options => options.EnableEndpointRouting = false);
             services.AddSingleton<IAutocompleteService, LocalAutocompleteService>();
             services.AddSingleton<IStopCacheService, StopCacheService>();
             services.AddTransient<IStopService, StopService>();
             services.AddTransient<IPassageService, PassageService>();
+            services.AddHttpClient<IGtfsProviderService, GtfsProviderService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,7 +52,7 @@ namespace TTSSWeb
             }
 
             app.UseDefaultFiles();
-            app.UseSpaStaticFiles();
+            app.UseStaticFiles();
             app.UseMvc(routes => {
                 routes.MapRoute("default", "{controller}/{action=Index}");
                 routes.MapRoute("spa", "{*url}", new { controller = "Home", action = "Index"});

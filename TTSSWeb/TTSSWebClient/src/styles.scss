@@ -26,6 +26,7 @@ $TTSSWebClient-theme: mat-light-theme($TTSSWebClient-primary, $TTSSWebClient-acc
 @import "~bootstrap/scss/reboot";
 @import "~bootstrap/scss/grid";
 @import "reset";
+@import "material_customizations";
 
 /* You can add global styles to this file, and also import other style files */
 

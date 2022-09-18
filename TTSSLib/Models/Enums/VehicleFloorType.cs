@@ -8,8 +8,9 @@ namespace TTSSLib.Models.Enums
 {
     public enum VehicleFloorType
     {
-        Low,
+        Unknown,
+        High,
         PartiallyLow,
-        High
+        Low
     }
 }

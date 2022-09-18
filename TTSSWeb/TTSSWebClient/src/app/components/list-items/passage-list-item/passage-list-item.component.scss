@@ -3,51 +3,94 @@
 }
 
 .passage {
+    height: 48px;
+
     &__line {
-        text-align: center;
         font-size: 24px;
+        width: 64px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
-    &__vehicle {
-        font-size: 9px;
+
+    &__description {
+        flex-basis: 0;
+        flex-grow: 1;
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        overflow: hidden;
     }
+
     &__direction {
         font-size: 14px;
         padding-right: 0;
+        max-height: 100%;
+        flex-basis: 0;
+        flex-grow: 1;
+        padding-top: 4px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
     }
+
+    &__vehicle {
+        font-size: 10px;
+        padding-bottom: 1px;
+        line-height: 16px;
+    }
+
     &__time {
         font-size: 18px;
-        padding-top: 8px;
-        text-align: right;
+        padding-right: 15px;
+        height: 100%;
+        width: 95px;
+        vertical-align: middle;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+
+        &__value {
+            position: relative;
+        }
+
+        &--subtime::after {
+            content: attr(data-subtime-value);
+            position: absolute;
+            top: 32px;
+            font-size: 10px;
+        }
+
+        &--positive::after {
+            color: green;
+        }
+
+        &--negative::after {
+            color: darkred;
+        }
     }
+
     &__line,
     &__time,
     .time-column {
         padding-left: 0;
-        padding-right: 0;
     }
+
     &--old {
         color: #444;
     }
 }
 
-.time {
-    font-size: 9px;
-    padding-left: 0;
-    padding-right: 0;
-    text-align: right;
-    &--positive {
-        color: green;
-    }
-    &--negative {
-        color: darkred;
-    }
-}
-
-.row--double {
-    min-height: 42px;
-}
 
 .row {
     width: 100%;
     margin-left: 0;
+}
+
+.disability-icon {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    background-color: brown;
 }

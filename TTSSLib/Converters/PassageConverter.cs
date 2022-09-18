@@ -11,8 +11,11 @@ namespace TTSSLib.Converters
 {
     internal class PassageConverter
     {
-        internal static Passage Convert(StopPassage passage, bool isBus = false)
+        internal static Passage Convert(StopPassage passage, Dictionary<string, Vehicle> vehicleLookup, bool isBus = false)
         {
+            Vehicle vehicle = null;
+            if (!string.IsNullOrWhiteSpace(passage.VehicleID) && vehicleLookup.ContainsKey(passage.VehicleID))
+                vehicle = vehicleLookup[passage.VehicleID];
             return new Passage
             {
                 ActualRelative = passage.ActualRelativeTime,
@@ -22,7 +25,7 @@ namespace TTSSLib.Converters
                 Direction = passage.Direction,
                 Line = passage.PatternText,
                 Status = PassageStatusConverter.Convert(passage.StatusString),
-                Vehicle = passage.GetVehicle(),
+                Vehicle = vehicle,
                 TripId = passage.TripID,
                 IsBus = isBus
             };

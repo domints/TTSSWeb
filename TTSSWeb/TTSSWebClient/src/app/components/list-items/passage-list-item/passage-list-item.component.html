@@ -1,29 +1,26 @@
 <div class="row passage" [class.passage--old]="passage.isOld">
-    <div class="col-1 passage__line">
+    <div class="passage__line">
         <span>{{ passage.line }}</span>
     </div>
-    <div class="col">
-        <div class="row row--double">
-            <div class="col passage__direction">
-                {{ passage.direction }}
-            </div>
+    <div class="passage__description">
+        <div class="passage__direction">
+            {{ passage.direction }}
         </div>
-        <div class="row">
-            <div class="col passage__vehicle">
-                {{ passage.tramDescription }}
-            </div>
+        <div class="passage__vehicle" *ngIf="passage.sideNo">
+            {{ passage.sideNo }} • {{ passage.modelName }}  <!--<div class="disability-icon">&nbsp;</div>-->
         </div>
     </div>
-    <div class="col-3 time-column">
-        <div class="row row--double">
-            <div class="col passage__time">
-                <span class="align-middle">{{ passage.mixedTime }}</span>
-            </div>
+    <div class="time-column">
+        <div class="passage__time" [class.passage__time--subtime]="!passage.isOld && passage.delayMinutes"
+            [class.passage__time--positive]="passage.delayMinutes < 0"
+            [class.passage__time--negative]="passage.delayMinutes > 0" [attr.data-subtime-value]="passage.delayMinutes + ' min'">
+            <span class="align-middle passage__time__value">{{ passage.mixedTime }}</span>
         </div>
-        <div class="row" *ngIf="!passage.isOld && passage.delayMinutes">
-            <div class="col time" [class.time--positive]="passage.delayMinutes < 0" [class.time--negative]="passage.delayMinutes > 0">
+        <!--<div class="row" *ngIf="!passage.isOld && passage.delayMinutes">
+            <div class="col time" [class.time--positive]="passage.delayMinutes < 0"
+                [class.time--negative]="passage.delayMinutes > 0">
                 <span>{{passage.delayMinutes}} min</span>
             </div>
-        </div>
+        </div>-->
     </div>
 </div>
