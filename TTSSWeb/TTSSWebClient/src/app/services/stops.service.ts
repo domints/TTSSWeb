@@ -10,7 +10,11 @@ export class StopsService {
   constructor(private http: HttpClient) { }
 
   public getAutocomplete(value: string): Observable<StopAutocomplete[]> {
-    return this.http.get<StopAutocomplete[]>('/api/stops/autocomplete?', { params: { q: value } });
+    return this.http.get<StopAutocomplete[]>('http://localhost:5163/autocomplete?', { params: { query: value } });
+  }
+
+  public getStops(): Observable<Stop[]> {
+    return this.http.get<Stop[]>('http://localhost:5163/stops');
   }
 
   public getPassages(stopId: string): Observable<PassageListItem[]> {
@@ -18,9 +22,16 @@ export class StopsService {
   }
 }
 
+export enum VehicleType {
+  None = 0,
+  Tram = 1,
+  Bus = 2
+}
+
 export class StopAutocomplete {
-  id: string;
+  groupId: string;
   name: string;
+  type: VehicleType;
 }
 
 export class PassageListItem {
@@ -35,4 +46,13 @@ export class PassageListItem {
   delayMinutes: number;
   tripId: string;
   isBus: string;
+}
+
+export class Stop {
+  groupId: string;
+  gtfsId: string;
+  name: string;
+  latitude: number;
+  longitude: number;
+  type: VehicleType;
 }

@@ -24,7 +24,7 @@
 .list-item {
     &:nth-child(even) {
         background-color: #fff;
-    
+
         .old-passages & {
             background-color: #fafafa;
         }
@@ -45,13 +45,16 @@
 }
 
 .stop-departures {
-    height: 100%;
     overflow: hidden;
-    
+    display: flex;
+    flex-direction: column;
+
+    &__list-container {
+      flex-grow: 1;
+      overflow-y: scroll;
+    }
 
     &__list {
-        height: 100%;
-        overflow-y: scroll;
     }
 }
 

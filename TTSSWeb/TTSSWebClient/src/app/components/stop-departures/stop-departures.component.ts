@@ -82,7 +82,7 @@ export class StopDeparturesComponent implements OnInit, IRoutableComponent {
 
   refreshPassages()
   {
-    this.stopsService.getPassages(this.currentStop.id).subscribe(r => {
+    this.stopsService.getPassages(this.currentStop.groupId).subscribe(r => {
       this.passages = r;
       this.currentPassages = r.filter(p => !p.isOld);
       this.oldPassages = r.filter(p => p.isOld);
@@ -91,10 +91,6 @@ export class StopDeparturesComponent implements OnInit, IRoutableComponent {
 
   autocompleteStopDisplayFn(stop?: StopAutocomplete) {
     return stop ? stop.name : undefined;
-  }
-
-  savePassage(item: PassageListItem) {
-    this.dialog.open(SavePassageDialogComponent, { data: JSON.parse(JSON.stringify(item)) });
   }
 
   passageDetails(item: PassageListItem)
