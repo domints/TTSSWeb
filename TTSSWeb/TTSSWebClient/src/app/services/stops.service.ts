@@ -10,7 +10,7 @@ export class StopsService {
   constructor(private http: HttpClient) { }
 
   public getAutocomplete(value: string): Observable<StopAutocomplete[]> {
-    return this.http.get<StopAutocomplete[]>('http://localhost:5163/autocomplete?', { params: { query: value } });
+    return this.http.get<StopAutocomplete[]>('https://gtfs.dszymanski.pl/autocomplete?', { params: { query: value } });
   }
 
   public getStops(): Observable<Stop[]> {
