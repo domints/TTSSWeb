@@ -33,7 +33,7 @@ export class DepartureDataService {
     c.currentPassages = this.passages.filter(p => !p.isOld);
     c.oldPassages = this.passages.filter(p => p.isOld);
     c.autocompleteControl.setValue(this.autocompleteValue);
-    if((<StopAutocomplete>this.autocompleteValue).groupId)
+    if(this.autocompleteValue && (<StopAutocomplete>this.autocompleteValue).groupId)
       c.currentStop = <StopAutocomplete>this.autocompleteValue;
   }
 }
