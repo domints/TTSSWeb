@@ -1,6 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { StopsService, StopAutocomplete, PassageListItem } from 'src/app/services/stops.service';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { SavePassageDialogComponent } from '../save-passage-dialog/save-passage-dialog.component';
 import { IRoutableComponent } from 'src/app/interfaces/IRoutableComponent';
@@ -32,7 +32,7 @@ export class StopDeparturesComponent implements OnInit, IRoutableComponent {
   }
   showBackArrow: boolean = false;
   toolbarTitle: string = "Odjazdy";
-  autocompleteControl: FormControl = new FormControl();
+  autocompleteControl: UntypedFormControl = new UntypedFormControl();
   autocompleteOptions: StopAutocomplete[] = [];
   currentStop: StopAutocomplete;
   passages: PassageListItem[] = [];
