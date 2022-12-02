@@ -20,11 +20,11 @@ $TTSSWebClient-theme: mat.define-light-theme($TTSSWebClient-primary, $TTSSWebCli
 // that you are using.
 @include mat.all-component-themes($TTSSWebClient-theme);
 @import "variables";
-@import "~bootstrap/scss/functions";
-@import "~bootstrap/scss/variables";
-@import "~bootstrap/scss/mixins";
-@import "~bootstrap/scss/reboot";
-@import "~bootstrap/scss/grid";
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/reboot";
+@import "bootstrap/scss/grid";
 @import "reset";
 @import "material_customizations";
 
