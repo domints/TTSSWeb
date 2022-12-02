@@ -57,7 +57,7 @@ $color-active: #1e88e5;
 
         &::after, &::before {
             content: '';
-            height: ($item-height - $dot-circle-radius) / 2;
+            height: math.div($item-height - $dot-circle-radius, 2);
             width: 0px;
             border-right: 2px solid $color-new;
             display: block;
@@ -66,12 +66,12 @@ $color-active: #1e88e5;
 
         &::after {
             bottom: 0px;
-            left: ($dot-column-width - 2px) / 2;;
+            left: math.div($dot-column-width - 2px, 2);
         }
 
         &::before {
             top: 0px;
-            left: ($dot-column-width - 2px) / 2;
+            left: math.div($dot-column-width - 2px, 2);
         }
     }
 
