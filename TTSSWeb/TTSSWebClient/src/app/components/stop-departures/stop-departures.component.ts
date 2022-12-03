@@ -1,7 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { StopsService, StopAutocomplete, PassageListItem } from 'src/app/services/stops.service';
 import { UntypedFormControl } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { SavePassageDialogComponent } from '../save-passage-dialog/save-passage-dialog.component';
 import { IRoutableComponent } from 'src/app/interfaces/IRoutableComponent';
 import { DepartureDataService } from 'src/app/services/store-services/departure-data.service';

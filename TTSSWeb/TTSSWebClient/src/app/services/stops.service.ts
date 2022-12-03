@@ -14,7 +14,7 @@ export class StopsService {
   }
 
   public getStops(): Observable<Stop[]> {
-    return this.http.get<Stop[]>('http://localhost:5163/stops');
+    return this.http.get<Stop[]>('https://gtfs.dszymanski.pl/stops');
   }
 
   public getPassages(stopId: string): Observable<PassageListItem[]> {

@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 :host {
     width: 100%;
     height: 100%;
@@ -10,7 +12,7 @@ $color-new: #111;
 $color-old: #888;
 $color-active: #1e88e5;
 
-/*.item {
+.item {
     height: 100%;
     display: flex;
     flex-wrap: wrap;
@@ -41,9 +43,9 @@ $color-active: #1e88e5;
         overflow: hidden;
         text-overflow: ellipsis;
     }
-}*/
+}
 
-/*.dot {
+.dot {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -98,9 +100,9 @@ $color-active: #1e88e5;
     &--first &__circle::before, &--last &__circle::after {
         visibility: hidden;
     }
-}*/
+}
 
-/*.dotdot {
+.dotdot {
 
     &__top,
     &__bottom {
@@ -158,4 +160,4 @@ $color-active: #1e88e5;
     &--last &__bottom {
         visibility: hidden;
     }
-}*/
+}
