@@ -22,7 +22,7 @@ steps:
   displayName: 'npm install'
   workingDirectory: TTSSWeb/TTSSWebClient/
 
-- script: ng build --prod
+- script: ng build -c production
   displayName: 'Build Angular for Prod'
   workingDirectory: TTSSWeb/TTSSWebClient/
 
