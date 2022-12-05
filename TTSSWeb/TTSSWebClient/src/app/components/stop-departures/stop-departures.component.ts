@@ -6,8 +6,10 @@ import { SavePassageDialogComponent } from '../save-passage-dialog/save-passage-
 import { IRoutableComponent } from 'src/app/interfaces/IRoutableComponent';
 import { DepartureDataService } from 'src/app/services/store-services/departure-data.service';
 import { Router } from '@angular/router';
-import { interval } from 'rxjs/internal/observable/interval';
 import { Subscription } from 'rxjs/internal/Subscription';
+import { PlausibleService } from 'src/app/services/plausible.service';
+import { interval } from 'rxjs';
+
 
 @Component({
   selector: 'stop-departures',
@@ -50,16 +52,19 @@ export class StopDeparturesComponent implements OnInit, IRoutableComponent {
   constructor(private stopsService: StopsService,
     private dialog: MatDialog,
     private departureDataService: DepartureDataService,
-    private router: Router) { }
+    private router: Router,
+    private plausibleService: PlausibleService
+  ) { }
 
   ngOnInit() {
     this.screenWidth = window.innerWidth;
-    this.autocompleteControl.valueChanges.subscribe(v => {
+    this.autocompleteControl.valueChanges.subscribe((v: string | StopAutocomplete) => {
       if (!this.stopValueEvents) {
         if (typeof v === "string")
           this.stopsService.getAutocomplete(v).subscribe(r => this.autocompleteOptions = r);
         else
         {
+          this.plausibleService.trackEvent("getDepartures", { props: { name: v.name, id: v.groupId}})
           this.stopRefresher();
           this.currentStop = v;
           this.refreshPassages();
@@ -95,6 +100,8 @@ export class StopDeparturesComponent implements OnInit, IRoutableComponent {
 
   passageDetails(item: PassageListItem)
   {
+    this.plausibleService.trackEvent("viewPassageDetails");
+
     if (this.screenWidth < 1200)
       this.router.navigate(['passage', item.tripId, item.isBus]);
     else
