@@ -30,8 +30,8 @@ export class DepartureDataService {
     c.toolbarTitle = this.toolbarTitle;
     c.autocompleteOptions = this.autocompleteOptions;
     c.passages = this.passages;
-    c.currentPassages = this.passages.filter(p => !p.isOld);
-    c.oldPassages = this.passages.filter(p => p.isOld);
+    c.currentPassages = this.passages && this.passages.filter(p => !p.isOld);
+    c.oldPassages = this.passages && this.passages.filter(p => p.isOld);
     c.autocompleteControl.setValue(this.autocompleteValue);
     if(this.autocompleteValue && (<StopAutocomplete>this.autocompleteValue).groupId)
       c.currentStop = <StopAutocomplete>this.autocompleteValue;
