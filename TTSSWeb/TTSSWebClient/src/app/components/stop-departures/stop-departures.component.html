@@ -3,11 +3,13 @@
     <mat-form-field class="autocomplete-form-field">
       <input type="text" matInput [matAutocomplete]="auto" [formControl]="autocompleteControl"
         placeholder="Szukaj przystanku...">
+      <button type="button" mat-icon-button matSuffix (click)="clearDepartures()" *ngIf="currentStop">
+        <mat-icon class="stop-input__clear" aria-label="Clear">close</mat-icon>
+      </button>
       <mat-autocomplete #auto="matAutocomplete" [displayWith]="autocompleteStopDisplayFn">
         <mat-option *ngFor="let option of autocompleteOptions" [value]="option">{{ option.name }}</mat-option>
       </mat-autocomplete>
     </mat-form-field>
-    <mat-icon class="stop-input__clear" (click)="clearDepartures()" *ngIf="currentStop" aria-label="Clear">close</mat-icon>
   </div>
   <div class="stop-favourites__list-container" *ngIf="!passages || passages.length == 0">
     <div class="container-margin">Najczęściej sprawdzane:</div>

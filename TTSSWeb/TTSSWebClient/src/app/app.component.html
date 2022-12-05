@@ -8,7 +8,7 @@
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content class="sidenav-content-root" fixedInViewport="true">
-        <mat-toolbar color="primary" class="app-toolbar">
+        <mat-toolbar class="app-toolbar">
             <button type="button" class="sidenav-toggle-btn" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="!showBackArrow && isHandset$ | async">
                 <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
             </button>

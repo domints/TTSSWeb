@@ -29,7 +29,7 @@
         max-height: 100%;
         flex-basis: 0;
         flex-grow: 1;
-        padding-top: 4px;
+        padding-top: 3px;
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
@@ -37,7 +37,7 @@
 
     &__vehicle {
         font-size: 10px;
-        padding-bottom: 1px;
+        padding-bottom: 4px;
         line-height: 16px;
     }
 
@@ -78,7 +78,7 @@
     }
 
     &--old {
-        color: #444;
+        opacity: 0.6;
     }
 }
 

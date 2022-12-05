@@ -13,8 +13,8 @@
 //  If you don't need the default component typographies but still want the hierarchy styles,
 //  you can delete this line and instead use:
 //    `@include mat.legacy-typography-hierarchy(mat.define-legacy-typography-config());`
-@include mat.all-legacy-component-typographies();
-@include mat.legacy-core();
+//@include mat.all-component-typographies();
+@include mat.core();
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
@@ -23,11 +23,29 @@ $TTSSWebClient-accent: mat.define-palette(mat.$amber-palette, A200, A100, A400);
 // The warn palette is optional (defaults to red).
 $TTSSWebClient-warn: mat.define-palette(mat.$red-palette);
 // Create the theme object (a Sass map containing all of the palettes).
-$TTSSWebClient-theme: mat.define-light-theme($TTSSWebClient-primary, $TTSSWebClient-accent, $TTSSWebClient-warn);
+$TTSSWebClient-theme: mat.define-light-theme((color: (
+        primary: $TTSSWebClient-primary,
+        accent: $TTSSWebClient-accent,
+        warn: $TTSSWebClient-warn,
+      ),
+      typography: mat.define-typography-config(),
+      density: 0));
+$TTSSWebClient-dark-theme: mat.define-dark-theme((color: (
+        primary: $TTSSWebClient-primary,
+        accent: $TTSSWebClient-accent,
+        warn: $TTSSWebClient-warn,
+      )));
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
-@include mat.all-legacy-component-themes($TTSSWebClient-theme);
+//@include mat.all-legacy-component-themes($TTSSWebClient-theme);
+@include mat.all-component-themes($TTSSWebClient-theme);
+
+@media (prefers-color-scheme: dark) {
+//  @include mat.all-legacy-component-themes($TTSSWebClient-dark-theme);
+  @include mat.all-component-colors($TTSSWebClient-dark-theme);
+}
+
 @import "variables";
 @import "bootstrap/scss/functions";
 @import "bootstrap/scss/variables";
@@ -41,10 +59,10 @@ $TTSSWebClient-theme: mat.define-light-theme($TTSSWebClient-primary, $TTSSWebCli
 
 html,
 body {
-    height: 100%;
+  height: 100%;
 }
 
 body {
-    margin: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }

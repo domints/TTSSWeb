@@ -30,7 +30,12 @@
   padding-bottom: 4px;
 }
 
-.list-item {
+.mdc-list-item {
+  padding-left: 1px;
+  padding-right: 1px;
+}
+
+/*.list-item {
   &:nth-child(even) {
     background-color: #fff;
 
@@ -43,7 +48,7 @@
   &--selected:nth-child(even) {
     background-color: #cce5ff;
   }
-}
+}*/
 
 .old-passages {
   margin-bottom: 10px;
@@ -90,11 +95,11 @@
   padding-top: 32px;
 
   &__text {
-    color: rgba(0, 0, 0, 0.6);
+    opacity: 0.6;
   }
 
   &__icon {
-    color: rgba(0, 0, 0, 0.1);
+    opacity: 0.1;
     display: flex;
     justify-content: center;
     align-items: center;

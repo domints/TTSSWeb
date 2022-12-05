@@ -19,7 +19,7 @@ export class PassageDetailListComponent implements OnInit {
   hasStopping: boolean = false;
   timer: any;
   reloading: boolean = false;
-  
+
   refreshSubscription: Subscription;
   dataLoadSubcsciption: Subscription;
 
@@ -44,14 +44,14 @@ export class PassageDetailListComponent implements OnInit {
   reload(forceReload: boolean = false): void {
     if (this.stopAutoReload)
       return;
-    
+
     if (forceReload)
     {
       this.reloading = false;
       if(this.dataLoadSubcsciption)
         this.dataLoadSubcsciption.unsubscribe();
     }
-    
+
     if (!this.reloading && this.tripId) {
       this.reloading = true;
       this.dataLoadSubcsciption = this.tripPassagesService.getTripPassages(this.tripId, this.isBus).subscribe(psgs => {
