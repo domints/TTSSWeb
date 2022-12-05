@@ -18,6 +18,9 @@ export class HomeComponent implements OnInit, IRoutableComponent {
   constructor(private router: Router) { }
 
   ngOnInit() {
-    this.router.navigate(['/departures']);
+    this.router.navigate(['/departures'], {
+      skipLocationChange: true,
+      replaceUrl: true
+    });
   }
 }
