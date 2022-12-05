@@ -71,6 +71,15 @@ export class StopDeparturesComponent implements OnInit, IRoutableComponent {
     });
   }
 
+  clearDepartures() {
+    this.stopValueEvents = true;
+    this.autocompleteControl.setValue(null);
+    this.stopRefresher();
+    this.currentStop = null;
+    this.passages = null;
+    this.stopValueEvents = false;
+  }
+
   refreshFavourites() {
     db.stopStats.orderBy("useCount").reverse().limit(10).toArray(stats => {
       if (!stats)
@@ -87,19 +96,18 @@ export class StopDeparturesComponent implements OnInit, IRoutableComponent {
       type: 0
     };
     this.stopValueEvents = true;
-    this.currentStop = stopData;
     this.autocompleteControl.setValue(stopData);
-    this.showStop(this.currentStop);
+    this.showStop(stopData);
     this.stopValueEvents = false;
   }
 
   favouriteDeleted(stop: StopStat) {
     this.plausibleService.trackEvent("favStopDeleted");
-    db.stopStats.delete(stop.id).then(this.refreshFavourites);
+    db.stopStats.delete(stop.id).then(this.refreshFavourites.bind(this));
   }
 
   showStop(stop: StopAutocomplete) {
-    db.stopStats.where("groupId").equals(stop.groupId).first((stat) => {
+    db.stopStats.where("groupId").equals(stop.groupId).first(((stat) => {
       if (stat) {
         stat.useCount++;
         stat.lastUse = Date.now();
@@ -113,7 +121,8 @@ export class StopDeparturesComponent implements OnInit, IRoutableComponent {
           lastUse: Date.now()
         });
       }
-    });
+      this.refreshFavourites();
+    }).bind(this));
     this.stopRefresher();
     this.currentStop = stop;
     this.refreshPassages();

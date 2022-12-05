@@ -1,20 +1,32 @@
 <div class="stop-departures">
-  <mat-form-field class="container autocomplete-form-field">
-    <input type="text" matInput [matAutocomplete]="auto" [formControl]="autocompleteControl"
-      placeholder="Szukaj przystanku...">
-    <mat-autocomplete #auto="matAutocomplete" [displayWith]="autocompleteStopDisplayFn">
-      <mat-option *ngFor="let option of autocompleteOptions" [value]="option">{{ option.name }}</mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
+  <div class="stop-input container">
+    <mat-form-field class="autocomplete-form-field">
+      <input type="text" matInput [matAutocomplete]="auto" [formControl]="autocompleteControl"
+        placeholder="Szukaj przystanku...">
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="autocompleteStopDisplayFn">
+        <mat-option *ngFor="let option of autocompleteOptions" [value]="option">{{ option.name }}</mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <mat-icon class="stop-input__clear" (click)="clearDepartures()" *ngIf="currentStop" aria-label="Clear">close</mat-icon>
+  </div>
   <div class="stop-favourites__list-container" *ngIf="!passages || passages.length == 0">
-    <div class="container-margin">Najczęściej używane:</div>
+    <div class="container-margin">Najczęściej sprawdzane:</div>
     <mat-list class="stop-favourites__list" [disableRipple]="false">
       <div class="list-item" *ngFor="let favItem of favouriteStops">
         <mat-list-item>
-          <favourite-stop-list-item [stop]="favItem" (stopClicked)="favouriteSelected($event)" (stopDeleted)="favouriteDeleted($event)"></favourite-stop-list-item>
+          <favourite-stop-list-item [stop]="favItem" (stopClicked)="favouriteSelected($event)"
+            (stopDeleted)="favouriteDeleted($event)"></favourite-stop-list-item>
         </mat-list-item>
       </div>
     </mat-list>
+    <div class="container empty-favourites" *ngIf="!favouriteStops || favouriteStops.length == 0">
+      <div class="empty-favourites__text">
+        Tu pojawi się 10 najczęściej sprawdzanych przez Ciebie przystanków
+      </div>
+      <div class="empty-favourites__icon">
+        <mat-icon class="empty-favourites__icon__item" aria-hidden="true">favorite</mat-icon>
+      </div>
+    </div>
   </div>
   <div class="stop-departures__list-container" *ngIf="passages !== null">
     <mat-list class="stop-departures__list" [disableRipple]="false">
