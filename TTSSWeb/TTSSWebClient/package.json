@@ -33,6 +33,7 @@
     "ol": "7.1.1-dev.1668111618807",
     "plausible-tracker": "^0.3.8",
     "rxjs": "~6.6.3",
+    "thenby": "^1.3.4",
     "zone.js": "^0.11.8"
   },
   "devDependencies": {

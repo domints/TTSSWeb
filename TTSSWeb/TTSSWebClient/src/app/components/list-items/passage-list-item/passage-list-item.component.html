@@ -16,11 +16,5 @@
             [class.passage__time--negative]="passage.delayMinutes > 0" [attr.data-subtime-value]="passage.delayMinutes + ' min'">
             <span class="align-middle passage__time__value">{{ passage.mixedTime }}</span>
         </div>
-        <!--<div class="row" *ngIf="!passage.isOld && passage.delayMinutes">
-            <div class="col time" [class.time--positive]="passage.delayMinutes < 0"
-                [class.time--negative]="passage.delayMinutes > 0">
-                <span>{{passage.delayMinutes}} min</span>
-            </div>
-        </div>-->
     </div>
 </div>

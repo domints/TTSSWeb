@@ -6,7 +6,17 @@
       <mat-option *ngFor="let option of autocompleteOptions" [value]="option">{{ option.name }}</mat-option>
     </mat-autocomplete>
   </mat-form-field>
-  <div class="stop-departures__list-container">
+  <div class="stop-favourites__list-container" *ngIf="!passages || passages.length == 0">
+    <div class="container-margin">Najczęściej używane:</div>
+    <mat-list class="stop-favourites__list" [disableRipple]="false">
+      <div class="list-item" *ngFor="let favItem of favouriteStops">
+        <mat-list-item>
+          <favourite-stop-list-item [stop]="favItem" (stopClicked)="favouriteSelected($event)" (stopDeleted)="favouriteDeleted($event)"></favourite-stop-list-item>
+        </mat-list-item>
+      </div>
+    </mat-list>
+  </div>
+  <div class="stop-departures__list-container" *ngIf="passages !== null">
     <mat-list class="stop-departures__list" [disableRipple]="false">
       <mat-expansion-panel class="old-passages" *ngIf="oldPassages.length > 0">
         <mat-expansion-panel-header>

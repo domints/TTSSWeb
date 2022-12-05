@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { PlausibleService } from 'src/app/services/plausible.service';
 import { interval } from 'rxjs';
+import { db, StopStat } from 'src/app/db';
+import { firstBy } from 'thenby';
 
 
 @Component({
@@ -19,8 +21,7 @@ export class StopDeparturesComponent implements OnInit, IRoutableComponent {
   onRouteIn() {
     this.stopValueEvents = true;
     this.departureDataService.restore(this);
-    if(this.currentStop)
-    {
+    if (this.currentStop) {
       this.refreshPassages();
       //this.startRefresher();
     }
@@ -35,10 +36,12 @@ export class StopDeparturesComponent implements OnInit, IRoutableComponent {
   autocompleteControl: UntypedFormControl = new UntypedFormControl();
   autocompleteOptions: StopAutocomplete[] = [];
   currentStop: StopAutocomplete;
-  passages: PassageListItem[] = [];
+  passages: PassageListItem[] | null = null;
   currentPassages: PassageListItem[] = [];
   oldPassages: PassageListItem[] = [];
   selectedPassage: PassageListItem = null;
+
+  favouriteStops: StopStat[] = [];
 
   tripId: string;
   isBus: string;
@@ -55,35 +58,80 @@ export class StopDeparturesComponent implements OnInit, IRoutableComponent {
 
   ngOnInit() {
     this.screenWidth = window.innerWidth;
+    this.refreshFavourites();
     this.autocompleteControl.valueChanges.subscribe((v: string | StopAutocomplete) => {
       if (!this.stopValueEvents) {
         if (typeof v === "string")
           this.stopsService.getAutocomplete(v).subscribe(r => this.autocompleteOptions = r);
-        else
-        {
-          this.plausibleService.trackEvent("getDepartures", { props: { name: v.name, id: v.groupId}})
-          this.stopRefresher();
-          this.currentStop = v;
-          this.refreshPassages();
-          //this.startRefresher();
-          this.toolbarTitle = "Odjazdy - " + v.name;
+        else {
+          this.plausibleService.trackEvent("getDeparturesFromText", { props: { name: v.name, id: v.groupId } });
+          this.showStop(v)
         }
       }
     });
   }
 
+  refreshFavourites() {
+    db.stopStats.orderBy("useCount").reverse().limit(10).toArray(stats => {
+      if (!stats)
+        return;
+      this.favouriteStops = stats.sort(firstBy("useCount", "desc").thenBy("lastUse", "desc").thenBy("name"));
+    })
+  }
+
+  favouriteSelected(stop: StopStat) {
+    this.plausibleService.trackEvent("getDeparturesFromFav", { props: { name: stop.name, id: stop.groupId } });
+    const stopData = {
+      groupId: stop.groupId,
+      name: stop.name,
+      type: 0
+    };
+    this.stopValueEvents = true;
+    this.currentStop = stopData;
+    this.autocompleteControl.setValue(stopData);
+    this.showStop(this.currentStop);
+    this.stopValueEvents = false;
+  }
+
+  favouriteDeleted(stop: StopStat) {
+    this.plausibleService.trackEvent("favStopDeleted");
+    db.stopStats.delete(stop.id).then(this.refreshFavourites);
+  }
+
+  showStop(stop: StopAutocomplete) {
+    db.stopStats.where("groupId").equals(stop.groupId).first((stat) => {
+      if (stat) {
+        stat.useCount++;
+        stat.lastUse = Date.now();
+        db.stopStats.put(stat);
+      }
+      else {
+        db.stopStats.add({
+          groupId: stop.groupId,
+          name: stop.name,
+          useCount: 1,
+          lastUse: Date.now()
+        });
+      }
+    });
+    this.stopRefresher();
+    this.currentStop = stop;
+    this.refreshPassages();
+    //this.startRefresher();
+    this.toolbarTitle = "Odjazdy - " + stop.name;
+  }
+
   startRefresher() {
-    if(!this.refresherSubscription || this.refresherSubscription.closed)
+    if (!this.refresherSubscription || this.refresherSubscription.closed)
       this.refresherSubscription = interval(20000).subscribe(() => this.refreshPassages());
   }
 
   stopRefresher() {
-    if(this.refresherSubscription && !this.refresherSubscription.closed)
+    if (this.refresherSubscription && !this.refresherSubscription.closed)
       this.refresherSubscription.unsubscribe();
   }
 
-  refreshPassages()
-  {
+  refreshPassages() {
     this.stopsService.getPassages(this.currentStop.groupId).subscribe(r => {
       this.passages = r;
       this.currentPassages = r.filter(p => !p.isOld);
@@ -95,14 +143,12 @@ export class StopDeparturesComponent implements OnInit, IRoutableComponent {
     return stop ? stop.name : undefined;
   }
 
-  passageDetails(item: PassageListItem)
-  {
+  passageDetails(item: PassageListItem) {
     this.plausibleService.trackEvent("viewPassageDetails");
 
     if (this.screenWidth < 1200)
       this.router.navigate(['passage', item.tripId, item.isBus]);
-    else
-    {
+    else {
       this.selectedPassage = item;
       this.tripId = item.tripId;
       this.isBus = item.isBus;
