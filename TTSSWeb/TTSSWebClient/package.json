@@ -27,6 +27,7 @@
     "@ng-bootstrap/ng-bootstrap": "^14.0.0-rc.1",
     "bootstrap": "~4.6.0",
     "core-js": "^2.6.12",
+    "dexie": "^3.2.2",
     "geotiff": "^2.0.7",
     "hammerjs": "^2.0.8",
     "ol": "7.1.1-dev.1668111618807",
