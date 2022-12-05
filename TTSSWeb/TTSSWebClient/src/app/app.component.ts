@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { MatDrawer } from '@angular/material/sidenav';
 import { IRoutableComponent } from './interfaces/IRoutableComponent';
+import { PlausibleService } from './services/plausible.service';
 
 @Component({
   selector: 'app-root',
@@ -22,7 +23,11 @@ export class AppComponent {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private location: Location) { }
+    private location: Location,
+    plausibleService: PlausibleService
+  ) {
+    plausibleService.init();
+  }
 
   async onActivate(e) {
     if (this.currentComponent && this.currentComponent.onRouteOut)

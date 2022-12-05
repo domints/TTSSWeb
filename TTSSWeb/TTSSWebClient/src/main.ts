@@ -10,7 +10,7 @@ import Plausible from 'plausible-tracker'
 const plausible = Plausible({
   domain: 'kklive.pl',
   apiHost: 'https://plausible.dszymanski.pl'
-})
+});
 
 if (environment.production) {
   enableProdMode();
