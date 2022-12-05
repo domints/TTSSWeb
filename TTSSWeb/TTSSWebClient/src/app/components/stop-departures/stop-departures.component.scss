@@ -30,7 +30,7 @@
   padding-bottom: 4px;
 }
 
-.mdc-list-item {
+.mat-mdc-list .mdc-list-item {
   padding-left: 1px;
   padding-right: 1px;
 }
@@ -60,6 +60,11 @@
   margin-right: 15px;
 }
 
+mat-expansion-panel .list-item {
+  margin-left: -24px;
+  margin-right: -24px;
+}
+
 .stop-departures {
   overflow: hidden;
   display: flex;
@@ -70,7 +75,34 @@
     overflow-y: scroll;
   }
 
-  &__list {}
+  &__list {
+    &.hidden {
+      display: none;
+    }
+  }
+}
+
+.empty-departures {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+
+  &__text {
+    opacity: 0.6;
+  }
+
+  &__icon {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.4;
+
+    &__item {
+      transform: scale(5);
+    }
+  }
 }
 
 @media (min-width: 1200px) {

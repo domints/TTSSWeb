@@ -11,7 +11,7 @@
       </mat-autocomplete>
     </mat-form-field>
   </div>
-  <div class="stop-favourites__list-container" *ngIf="!passages || passages.length == 0">
+  <div class="stop-favourites__list-container" *ngIf="(!passages || passages.length == 0) && !currentStop">
     <div class="container-margin">Najczęściej sprawdzane:</div>
     <mat-list class="stop-favourites__list" [disableRipple]="false">
       <div class="list-item" *ngFor="let favItem of favouriteStops">
@@ -31,7 +31,7 @@
     </div>
   </div>
   <div class="stop-departures__list-container" *ngIf="passages !== null">
-    <mat-list class="stop-departures__list" [disableRipple]="false">
+    <mat-list class="stop-departures__list" [disableRipple]="false" [class.hidden]="passages.length == 0">
       <mat-expansion-panel class="old-passages" *ngIf="oldPassages.length > 0">
         <mat-expansion-panel-header>
           <mat-panel-title>
@@ -58,6 +58,14 @@
         </mat-menu>
       </div>
     </mat-list>
+    <div class="container empty-departures" *ngIf="(!passages || passages.length == 0)" >
+      <div class="empty-departures__text">
+        Niestety nie ma żadnych odjazdów do wyświetlenia :(
+      </div>
+      <div class="empty-departures__icon">
+        <mat-icon class="empty-departures__icon__item" aria-hidden="true">departure_board</mat-icon>
+      </div>
+    </div>
   </div>
 </div>
 <div class="trip-passages" *ngIf="screenWidth >= 1200">
