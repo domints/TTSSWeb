@@ -78,6 +78,7 @@ export class StopDeparturesComponent implements OnInit, IRoutableComponent {
     this.currentStop = null;
     this.passages = null;
     this.stopValueEvents = false;
+    this.toolbarTitle = "Odjazdy";
   }
 
   refreshFavourites() {
