@@ -9,8 +9,9 @@
         font-size: 24px;
         width: 64px;
         display: flex;
-        align-items: center;
-        justify-content: center;
+        align-items: flex-start;
+        justify-content: right;
+        padding: 8px;
     }
 
     &__description {
@@ -68,6 +69,15 @@
 
         &--negative::after {
             color: darkred;
+        }
+
+        @media (prefers-color-scheme: dark) {
+          &--negative::after {
+            color: #50EB52;
+          }
+          &--negative::after {
+            color: #ED5153;
+          }
         }
     }
 
