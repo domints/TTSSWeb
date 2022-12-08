@@ -12,6 +12,15 @@ namespace TTSSLib.Models.API.Base
         /// </value>
         [JsonProperty("actualTime")]
         public string ActualTime { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the actual departure/arrival time as text (like 12:32).
+        /// </summary>
+        /// <value>
+        /// The actual time.
+        /// </value>
+        [JsonProperty("plannedTime")]
+        public string PlannedTime { get; set; }
 
         /// <summary>
         /// Gets or sets the status - predicted or planned.
