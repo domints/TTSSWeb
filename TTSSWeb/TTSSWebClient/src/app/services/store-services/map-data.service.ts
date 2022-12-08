@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { MapComponent } from "src/app/components/map/map.component";
+import { MapComponent } from "src/app/map/map.component";
 import { Stop } from "../stops.service";
 
 @Injectable({

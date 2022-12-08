@@ -27,7 +27,6 @@ import { PassageDetailsComponent } from './components/passage-details/passage-de
 import { PassageDetailListComponent } from './components/passage-details/passage-detail-list/passage-detail-list.component';
 import { PassageListItemComponent } from './components/list-items/passage-list-item/passage-list-item.component';
 import { TripPassageListItemComponent } from './components/list-items/trip-passage-list-item/trip-passage-list-item.component';
-import { MapComponent } from './components/map/map.component';
 import { FavouriteStopListItemComponent } from './components/list-items/favourite-stop-list-item/favourite-stop-list-item.component';
 
 @NgModule({
@@ -41,7 +40,6 @@ import { FavouriteStopListItemComponent } from './components/list-items/favourit
         PassageListItemComponent,
         TripPassageListItemComponent,
         FavouriteStopListItemComponent,
-        MapComponent,
         PassageDetailListComponent
     ],
     imports: [

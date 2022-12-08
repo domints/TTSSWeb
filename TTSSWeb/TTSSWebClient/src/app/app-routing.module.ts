@@ -5,13 +5,12 @@ import { HomeComponent } from './components/home/home.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { PassageDetailsComponent } from './components/passage-details/passage-details.component';
 import { TripPassagesResolver } from './resolvers/trip-passages.resolver';
-import { MapComponent } from './components/map/map.component';
 
 const routes: Routes = [
   { path: 'departures', component: StopDeparturesComponent },
   { path: 'passage/:id/:isBus', component: PassageDetailsComponent, resolve: { passages: TripPassagesResolver } },
-  { path: 'map', component: MapComponent },
   { path: '', component: HomeComponent },
+  { path: 'map', loadChildren: () => import('./map/map.module').then(m => m.MapModule) },
   { path: '**', component: NotFoundComponent }
 ];
 
