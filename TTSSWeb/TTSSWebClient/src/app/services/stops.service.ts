@@ -18,7 +18,7 @@ export class StopsService {
   }
 
   public getPassages(stopId: string): Observable<PassageListItem[]> {
-    return this.http.get<PassageListItem[]>('/api/stops/passages', { params: { stopId: stopId } })
+    return this.http.get<PassageListItem[]>(`https://gtfs.dszymanski.pl/departures/stop/${stopId}`);
   }
 }
 
@@ -40,12 +40,13 @@ export class PassageListItem {
   modelName: string;
   sideNo: string;
   floorType: number;
-  mixedTime: string;
+  timeString: string;
   vehicleId: string;
   isOld: boolean;
   delayMinutes: number;
+  relativeTime: number;
   tripId: string;
-  isBus: string;
+  vehicleType: VehicleType;
 }
 
 export class Stop {

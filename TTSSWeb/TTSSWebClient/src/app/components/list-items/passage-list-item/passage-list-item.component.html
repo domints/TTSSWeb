@@ -14,7 +14,7 @@
         <div class="passage__time" [class.passage__time--subtime]="!passage.isOld && passage.delayMinutes"
             [class.passage__time--positive]="passage.delayMinutes < 0"
             [class.passage__time--negative]="passage.delayMinutes > 0" [attr.data-subtime-value]="passage.delayMinutes + ' min'">
-            <span class="align-middle passage__time__value">{{ passage.mixedTime }}</span>
+            <span class="align-middle passage__time__value">{{ passage.timeString }}</span>
         </div>
     </div>
 </div>

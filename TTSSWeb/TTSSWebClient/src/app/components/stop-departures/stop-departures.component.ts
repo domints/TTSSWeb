@@ -1,5 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { StopsService, StopAutocomplete, PassageListItem } from 'src/app/services/stops.service';
+import { StopsService, StopAutocomplete, PassageListItem, VehicleType } from 'src/app/services/stops.service';
 import { UntypedFormControl } from '@angular/forms';
 import { IRoutableComponent } from 'src/app/interfaces/IRoutableComponent';
 import { DepartureDataService } from 'src/app/services/store-services/departure-data.service';
@@ -44,7 +44,7 @@ export class StopDeparturesComponent implements OnInit, IRoutableComponent {
   favouriteStops: StopStat[] = [];
 
   tripId: string;
-  isBus: string;
+  isBus: boolean;
 
   screenWidth: number;
 
@@ -157,11 +157,11 @@ export class StopDeparturesComponent implements OnInit, IRoutableComponent {
     this.plausibleService.trackEvent("viewPassageDetails");
 
     if (this.screenWidth < 1200)
-      this.router.navigate(['passage', item.tripId, item.isBus]);
+      this.router.navigate(['passage', item.tripId, item.vehicleType == VehicleType.Bus]);
     else {
       this.selectedPassage = item;
       this.tripId = item.tripId;
-      this.isBus = item.isBus;
+      this.isBus = item.vehicleType == VehicleType.Bus;
     }
   }
 
