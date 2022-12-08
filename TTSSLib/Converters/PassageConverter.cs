@@ -35,7 +35,7 @@ namespace TTSSLib.Converters
         {
             return new Models.Data.TripPassage
             {
-                ActualTime = passage.ActualTime != null ? TimeSpan.ParseExact(passage.ActualTime, "g", System.Globalization.CultureInfo.InvariantCulture) : (passage.PlannedTime ? TimeSpan.ParseExact(passage.ActualTime, "g", System.Globalization.CultureInfo.InvariantCulture) : new TimeSpan()),
+                ActualTime = passage.ActualTime != null ? TimeSpan.ParseExact(passage.ActualTime, "g", System.Globalization.CultureInfo.InvariantCulture) : (passage.PlannedTime != null ? TimeSpan.ParseExact(passage.ActualTime, "g", System.Globalization.CultureInfo.InvariantCulture) : new TimeSpan()),
                 Status = PassageStatusConverter.Convert(passage.StatusString),
                 SeqNumber = passage.SequenceNo,
                 StopId = passage.Stop?.ID,
