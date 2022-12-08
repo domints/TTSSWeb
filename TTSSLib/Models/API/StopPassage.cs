@@ -59,15 +59,6 @@ namespace TTSSLib.Models.API
         public string PatternText { get; set; }
 
         /// <summary>
-        /// Gets or sets the planned time text (like 12:34), as in schedule.
-        /// </summary>
-        /// <value>
-        /// The planned time.
-        /// </value>
-        [JsonProperty("plannedTime")]
-        public string PlannedTime { get; set; }
-
-        /// <summary>
         /// Gets or sets the route identifier.
         /// </summary>
         /// <value>
