@@ -17,7 +17,7 @@ export class PassageDetailsComponent implements OnInit, OnDestroy, IRoutableComp
 
   paramSubscription: Subscription;
   tripId: any;
-  isBus: any;
+  vehicleType: any;
   stopListReload: boolean = true;
 
   onRouteIn() {
@@ -34,7 +34,7 @@ export class PassageDetailsComponent implements OnInit, OnDestroy, IRoutableComp
 
   ngOnInit() {
     this.tripId = this.route.snapshot.params.id;
-    this.isBus = this.route.snapshot.params.isBus;
+    this.vehicleType = this.route.snapshot.params.vehicleType;
     this.paramSubscription = this.route.params.subscribe(p => this.tripId = p.id);
   }
 

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { interval, Subscription } from 'rxjs';
+import { VehicleType, vehicleTypeToString } from 'src/app/services/stops.service';
 import { TripPassages, TripPassagesService } from 'src/app/services/trip-passages.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { TripPassages, TripPassagesService } from 'src/app/services/trip-passage
 export class PassageDetailListComponent implements OnInit {
   @Output() updateToolbarTitle = new EventEmitter<string>();
   @Input() tripId: string;
-  @Input() isBus: string;
+  @Input() vehicleType: VehicleType;
   @Input() stopAutoReload: boolean;
 
 
@@ -54,7 +55,7 @@ export class PassageDetailListComponent implements OnInit {
 
     if (!this.reloading && this.tripId) {
       this.reloading = true;
-      this.dataLoadSubcsciption = this.tripPassagesService.getTripPassages(this.tripId, this.isBus).subscribe(psgs => {
+      this.dataLoadSubcsciption = this.tripPassagesService.getTripPassages(this.tripId, vehicleTypeToString(this.vehicleType)).subscribe(psgs => {
         this.reloading = false;
         this.refreshData(psgs);
       });

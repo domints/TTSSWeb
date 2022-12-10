@@ -1,5 +1,5 @@
 <div class="item" [class.item--old]="item.isOld" [class.item--stopping]="item.isStopping">
-    <div class="item__time">{{item.actualTime}}</div>
+    <div class="item__time">{{item.timeString}}</div>
     <div class="item__dot dot" [class.dot--old]="item.isOld" [class.dot--new]="!item.isOld"
         [class.dot--active]="item.isStopping" [class.dot--first]="isFirst" [class.dot--last]="isLast"
         [class.dot--edge]="isEdge">

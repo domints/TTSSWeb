@@ -28,6 +28,21 @@ export enum VehicleType {
   Bus = 2
 }
 
+export function vehicleTypeToString(type: VehicleType | string): string {
+  switch (type) {
+    case VehicleType.Bus:
+      return 'bus';
+    case VehicleType.Tram:
+      return 'tram';
+    case 'bus':
+      return 'bus';
+    case 'tram':
+      return 'tram';
+    default:
+      return '';
+  }
+}
+
 export class StopAutocomplete {
   groupId: string;
   name: string;
